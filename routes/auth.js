@@ -3,6 +3,7 @@ const Users = require("../schema/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
+const Events = require("../schema/event");
 
 const router = express.Router();
 
@@ -12,9 +13,20 @@ router.get("/login", (req, res) => {
 
 router.get("/home", (req, res) => {
   const username = req.session.username;
-  Users.find({ username: { $ne: username } }).then((users) => {
-    res.render("home", { username, users });
-  });
+  Events.find({})
+    .populate("playerOne")
+    .populate("playerTwo")
+    .exec()
+    .then((eventHistory) => {
+      let history = [];
+      for (let i = 0; i < eventHistory.length; i++) {
+        const singleEvent = eventHistory[i];
+        if (singleEvent.playerOne.username === username) {history.push(singleEvent); }
+      }
+      Users.find({ username: { $ne: username } }).then((playerTwo) => {
+        res.render("home", { username, playerTwo, eventHistory: history });
+      });
+    });
 });
 
 router.post("/login", (req, res) => {
