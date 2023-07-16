@@ -17,7 +17,7 @@ const app = express();
 
 mongoose
   .connect(
-    `mongodb+srv://hl11jp:${process.env.password}@cluster0.lqvmbbm.mongodb.net/`,
+    `mongodb+srv://hl11jp:${process.env.password}@cluster0.lqvmbbm.mongodb.net/bird-system`,
     { useNewUrlParser: true, useUnifiedTopology: true }
   )
   .then(() => console.log("Connected!"));
@@ -31,6 +31,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/', (_, res) => res.render('index'))
 app.use("/test", (_, res) => {
   res.status(200).send("working");
 });
