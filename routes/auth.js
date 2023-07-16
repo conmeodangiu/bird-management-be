@@ -1,6 +1,8 @@
 const express = require("express");
 const Users = require("../schema/user");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 const router = express.Router();
 
@@ -27,6 +29,10 @@ router.post("/login", (req, res) => {
             res.status(500).json("error comparing passwords");
           } else if (result) {
             req.session.username = found.username;
+            const token = jwt.sign(found.toJSON(), process.env.secret);
+            res.cookie("token", token, {
+              httpOnly: true,
+            });
             res.redirect("/auth/home");
           } else {
             res.status(400).json("login failed");

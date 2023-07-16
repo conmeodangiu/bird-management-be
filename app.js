@@ -13,6 +13,7 @@ const adminRoute = require("./routes/adminRoute");
 // const managerRoute = require("./routes/managerRoute");
 const userRoute = require("./routes/userRoute")
 const staffRoute = require("./routes/staffRoute");
+const eventRoute = require("./routes/eventRoute");
 require("dotenv").config();
 
 const app = express();
@@ -45,10 +46,10 @@ app.get("/", (_, res) => {
   return res.render("index");
 });
 app.use("/auth", authRoute);
-app.use("/admin", adminRoute);
-app.use("/user", userRoute);
+app.use("/admin", isAuthorized, adminRoute);
 // app.use("/manager" , managerRoute);
-app.use("/staff", staffRoute);
+app.use("/staff", isAuthorized, staffRoute);
+app.use("/event", isAuthorized, eventRoute);
 
 app.listen("3000", () => {
   console.log("listening on 3000");
