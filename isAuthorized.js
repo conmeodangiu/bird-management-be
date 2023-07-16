@@ -15,20 +15,22 @@ const isAuthorized = (req, res, next) => {
     console.log(baseUrl);
     if (baseUrl === "/admin" && user.role === "ADMIN") {
       req.user = user;
-      next();
+      return next();
     } else if (baseUrl === "/staff" && user.role === "STAFF") {
       req.user = user;
-      next();
+      return next();
     } else if (
       baseUrl === "/blog" &&
       (user.role === "MEMBER" || user.role === "ADMIN" || user.role === "STAFF")
     ) {
+      req.user = user;
+      return next();
     } else if (
       baseUrl === "/event" &&
       (user.role === "MEMBER" || user.role === "STAFF")
     ) {
       req.user = user;
-      next();
+      return next();
     } else {
       res.sendStatus(403);
     }
