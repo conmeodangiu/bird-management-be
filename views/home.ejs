@@ -124,9 +124,9 @@
                         class="form-select"
                         name="playerTwo"
                     >
-                        <% for(let i = 0; i < users.length; i++) { %>
-                        <option value="<%=users[i]._id%>">
-                            <%=users[i].fullName%>
+                        <% for(let i = 0; i < playerTwo.length; i++) { %>
+                        <option value="<%=playerTwo[i]._id%>">
+                            <%=playerTwo[i].fullName%>
                         </option>
                         <% } %>
                     </select>
@@ -162,5 +162,39 @@
                 </div>
             </form>
         </main>
+        <%if (typeof eventHistory != "undefined" && eventHistory.length > 0) {
+        %>
+        <main class="container mt-5">
+            <h1>Match History</h1>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">You vs.</th>
+                        <th scope="col">Player</th>
+                        <th scope="col">At</th>
+                        <th scope="col">Title</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for (let i = 0; i < eventHistory.length; i++) { %> <%
+                    const playerOne = eventHistory[i].playerOne.username; const
+                    playerTwo = eventHistory[i].playerTwo.username;
+                    console.log(playerOne) %>
+                    <tr>
+                        <th scope="row"><%=i + 1%></th>
+                        <td><%=playerOne%></td>
+                        <td><%=playerTwo%></td>
+                        <td>
+                            <%=eventHistory[i].date.toString().replace(/\sGMT\+\d+\s\(.+\)$/,
+                            "")%>
+                        </td>
+                        <td><%=eventHistory[i].titleMatch%></td>
+                    </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </main>
+        <% } %>
     </body>
 </html>
