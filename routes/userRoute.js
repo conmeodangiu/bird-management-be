@@ -6,68 +6,34 @@ const router = express.Router();
 
 router.get("/list", async (req, res) => {
   const userList = await Users.find({});
+  // console.log(userList);
   return res.render("list", { userList });
 });
 
-// router.get("/home", (req, res) => {
-//   const username = req.session.username;
-//   res.render("home", { username });
-// });
+router.get("/edituser/:id", async (req, res) => {
+  const id = req.params.id;
+  const user = await Users.findOne({ _id: id })
+  return res.render("edituser", { user: user });
+});
 
-// router.post("/login", (req, res) => {
-//   const { body } = req;
-//   Users.findOne({ username: body.username })
-//     .then((found) => {
-//       if (found) {
-//         bcrypt.compare(body.password, found.password, (err, result) => {
-//           if (err) {
-//             res.status(500).json("error comparing passwords");
-//           } else if (result) {
-//             req.session.username = found.username;
-//             res.redirect("/auth/home");
-//           } else {
-//             res.status(400).json("login failed");
-//           }
-//         });
-//       } else {
-//         res.status(400).json("login failed");
-//       }
-//     })
-//     .catch((err) => console.log(err));
-// });
+router.post("/update/:id", async (req, res) => {
+  const { id } = req.params;
+  const { title, body } = req.body;
+  const { user } = req;
 
-// router.get("/register", (req, res) => {
-//   return res.render("register");
-// });
+  if (user.role !== "ADMIN") return res.render("404");
 
-// router.post("/register", (req, res) => {
-//   const { body } = req;
-//   Users.findOne({ username: body.username })
-//     .exec()
-//     .then((result) => {
-//       if (result) {
-//         res.status(400).json("duplicate user");
-//       } else {
-//         bcrypt.hash(body.password, 10, (err, hashedPassword) => {
-//           if (err) {
-//             res.status(500).json("error hashing password");
-//           } else {
-//             const newUser = new Users({
-//               username: body.username,
-//               password: hashedPassword,
-//             });
-//             newUser
-//               .save()
-//               .then(() => {
-//                 res.redirect("/auth/login");
-//               })
-//               .catch((err) => {
-//                 res.status(500).json("error creating user");
-//               });
-//           }
-//         });
-//       }
-//     });
-// });
+  await Blog.findByIdAndUpdate(id, { title, body });
+
+  return res.redirect("/user/list");
+});
+
+router.delete("/delete/:id", (req, res) => {
+  const id = req.params.id;
+  console.log(id);
+  Event.findByIdAndDelete({ _id: id }).then(() => {
+    return res.json("delete successfully");
+  });
+});
 
 module.exports = router;

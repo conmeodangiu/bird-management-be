@@ -47,7 +47,7 @@ app.get("/", (_, res) => {
 });
 app.use("/auth", authRoute);
 app.use("/admin", isAuthorized, adminRoute);
-// app.use("/manager" , managerRoute);
+app.use("/user", userRoute)
 app.use("/staff", isAuthorized, staffRoute);
 app.use("/event", isAuthorized, eventRoute);
 
