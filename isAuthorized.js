@@ -19,7 +19,14 @@ const isAuthorized = (req, res, next) => {
     } else if (baseUrl === "/staff" && user.role === "STAFF") {
       req.user = user;
       next();
-    } else if (baseUrl === "/blog" && (user.role === "MEMBER" || user.role === "ADMIN" || user.role === "STAFF")) {
+    } else if (
+      baseUrl === "/blog" &&
+      (user.role === "MEMBER" || user.role === "ADMIN" || user.role === "STAFF")
+    ) {
+    } else if (
+      baseUrl === "/event" &&
+      (user.role === "MEMBER" || user.role === "STAFF")
+    ) {
       req.user = user;
       next();
     } else {

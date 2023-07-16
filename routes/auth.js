@@ -12,11 +12,9 @@ router.get("/login", (req, res) => {
 
 router.get("/home", (req, res) => {
   const username = req.session.username;
-  res.render("home", { username });
-});
-router.post("/home", (req, res) => {
-  // const username = req.session.username;
-  res.render("home", { username });
+  Users.find({ username: { $ne: username } }).then((users) => {
+    res.render("home", { username, users });
+  });
 });
 
 router.post("/login", (req, res) => {
