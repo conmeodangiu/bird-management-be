@@ -9,7 +9,7 @@ const isAuthorized = (req, res, next) => {
   jwt.verify(token, secret, (err, user) => {
     if (err) {
       console.log(err);
-      res.sendStatus(401);
+      return res.sendStatus(401);
     }
     const { baseUrl } = req;
     console.log(baseUrl);
@@ -17,6 +17,9 @@ const isAuthorized = (req, res, next) => {
       req.user = user;
       next();
     } else if (baseUrl === "/staff" && user.role === "STAFF") {
+      req.user = user;
+      next();
+    } else if (baseUrl === "/blog" && (user.role === "MEMBER" || user.role === "ADMIN" || user.role === "STAFF")) {
       req.user = user;
       next();
     } else {

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container">
+        <img
+          src="https://png.pngtree.com/template/20191014/ourmid/pngtree-bird-fly-logo-vector-silhouette-image_318771.jpg"
+          alt="Logo"
+          width="30"
+          height="24"
+          class="d-inline-block align-text-top"
+        />
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNavAltMarkup"
+          aria-controls="navbarNavAltMarkup"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-link active" aria-current="page" href="/">Home</a>
+            <a class="nav-link" href="/blog">Blog</a>
+            <a class="nav-link" href="/user">User</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="row row-cols-1 row-cols-md-2 g-4">
+        <% for(var i=0; i < blogs.length; i++) { %>
+        <div class="col-3">
+          <div class="card h-100">
+            <img
+              class="object-fit-cover border rounded"
+              height="200"
+              width="auto"
+              src="<%= blogs[i].image %>"
+              class="card-img-top"
+              alt="..."
+              onerror="this.src='https://boodabike.com/wp-content/uploads/2023/03/no-image.jpg'"
+            />
+            <div class="card-body">
+              <h5 class="card-title"><%= blogs[i].title %></h5>
+              <p class="card-text text-truncate"><%- blogs[i].body %></p>
+              <div class="d-flex justify-content-between">
+                <a
+                  href="/blog/<%= blogs[i]._id %>"
+                  class="btn btn-primary card-text"
+                  >Details</a
+                >
+                <% if (isAdmin) { %>
+                <a
+                  href="/blog/edit/<%= blogs[i]._id %>"
+                  class="btn btn-primary card-text"
+                  >Edit</a
+                >
+                <% } %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <% } %> <% if (isAdmin) { %>
+        <div class="col-3">
+          <a href="/blog/create">
+            <div class="card h-100">
+              <div
+                class="card-body d-flex justify-content-center d-flex align-items-center"
+                style="font-size: 2rem"
+              >
+                <i class="bi bi-plus-square-fill"></i>
+              </div>
+            </div>
+          </a>
+        </div>
+        <% } %>
+      </div>
+    </div>
+  </body>
+</html>
