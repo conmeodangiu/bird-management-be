@@ -1,6 +1,5 @@
 // crud staff
 //
-
 const express = require("express");
 const router = express.Router();
 const Users = require("../schema/user");
@@ -9,7 +8,7 @@ router.get("/", (_, res) => {
   Users.find({})
     .then((user) => {
       //
-      return res.json(user);
+      return res.render("admin", { user });;
     })
     .catch((err) => console.log(err));
 });
@@ -28,6 +27,12 @@ router.post("/create", (req, res) => {
       return res.json("create successfully");
     })
     .catch((err) => console.log(err));
+});
+
+router.get("/edituser/:id", async (req, res) => {
+  const id = req.params.id;
+  const user = await Users.findOne({ _id: id })
+  return res.render("edituser", { user: user });
 });
 
 router.put("/update/:id", (req, res) => {
