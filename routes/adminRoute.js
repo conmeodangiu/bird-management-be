@@ -5,7 +5,7 @@ const router = express.Router();
 const Users = require("../schema/user");
 
 router.get("/", (_, res) => {
-  Users.find({})
+  Users.find({ role: "STAFF" })
     .then((user) => {
       //
       return res.render("admin", { user });;
@@ -32,7 +32,7 @@ router.post("/create", (req, res) => {
 router.get("/edituser/:id", async (req, res) => {
   const id = req.params.id;
   const user = await Users.findOne({ _id: id })
-  return res.render("edituser", { user: user });
+  return res.render("edit-staff", { user: user });
 });
 
 router.put("/update/:id", (req, res) => {
@@ -41,7 +41,7 @@ router.put("/update/:id", (req, res) => {
   Users.findByIdAndUpdate({ _id: id }, { $set: req.body }, { new: true })
     .then(() => {
       //
-      return res.json("update successfully");
+      return res.redirect("/admin");
     })
     .catch((err) => console.log(err));
 });
@@ -51,7 +51,7 @@ router.get("/delete/:id", (res, req) => {
   Users.findByIdAndDelete({ _id: id })
     .then(() => {
       //
-      return res.json("delete successfully");
+      return res.redirect("/admin");
     })
     .catch((err) => console.log(err));
 });

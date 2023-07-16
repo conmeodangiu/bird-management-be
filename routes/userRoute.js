@@ -12,7 +12,7 @@ router.get("/", async (req, res) => {
 router.get("/edituser/:id", async (req, res) => {
   const id = req.params.id;
   const user = await Users.findOne({ _id: id })
-  return res.render("edituser", { user: user });
+  return res.render("edit-user", { user: user });
 });
 
 router.post("/update/:id", async (req, res) => {
