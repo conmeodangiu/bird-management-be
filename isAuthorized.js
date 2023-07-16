@@ -32,6 +32,8 @@ const isAuthorized = (req, res, next) => {
     } else {
       res.sendStatus(403);
     }
+
+    return res.redirect("/");
   });
 };
 
