@@ -7,6 +7,9 @@ const blogSchema = mongoose.Schema(
     body: {
       type: String,
     },
+    image: {
+      type: String,
+    },
     postedBy: {
       type: mongoose.Schema.Types.ObjectId,
     },
