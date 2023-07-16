@@ -93,7 +93,7 @@
                 </div>
             </nav>
             <h1 class="h3 mb-3 fw-normal" style="margin-top: 2rem">
-                Welcome back <%= username %>!
+                Welcome back <%= fullName %>!
             </h1>
             <p>Create your event</p>
             <form class="row g-3" method="post" action="/event/create-new-event">
@@ -105,7 +105,7 @@
                         type="text"
                         class="form-control"
                         id="username"
-                        value="<%= username %>"
+                        value="<%= fullName %>"
                         readonly
                         name="playerOne"
                     />
@@ -166,8 +166,8 @@
                 </thead>
                 <tbody>
                     <% for (let i = 0; i < eventHistory.length; i++) { %>
-                    <% const playerOne = eventHistory[i].playerOne && eventHistory[i].playerOne.username;
-                    const playerTwo = eventHistory[i].playerTwo && eventHistory[i].playerTwo.username;
+                    <% const playerOne = eventHistory[i].playerOne && eventHistory[i].playerOne.fullName;
+                    const playerTwo = eventHistory[i].playerTwo && eventHistory[i].playerTwo.fullName;
                         console.log(playerOne)
                     %>
                   <tr>
