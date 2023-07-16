@@ -7,8 +7,12 @@ router.get("/login", (req, res) => {
   return res.render("login");
 });
 router.get("/home", (req, res) => {
-  const username = req.session.username; 
-  res.render("home", { username }); 
+  const username = req.session.username;
+  res.render("home", { username });
+});
+router.post("/home", (req, res) => {
+  // const username = req.session.username;
+  res.render("home", { username });
 });
 router.post("/login", (req, res) => {
   const { body } = req;
@@ -19,7 +23,7 @@ router.post("/login", (req, res) => {
           if (err) {
             res.status(500).json("error comparing passwords");
           } else if (result) {
-            req.session.username = found.username; 
+            req.session.username = found.username;
             res.redirect("/auth/home");
           } else {
             res.status(400).json("login failed");

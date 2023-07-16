@@ -30,20 +30,16 @@ router.post("/create", (req, res) => {
     .catch((err) => console.log(err));
 });
 
-router.put(
-  "/update/:id",
-  (req,
-  (res) => {
-    const id = req.params.id;
-    const { body } = req;
-    Users.findByIdAndUpdate({ _id: id }, { $set: req.body }, { new: true })
-      .then(() => {
-        //
-        return res.json("update successfully");
-      })
-      .catch((err) => console.log(err));
-  })
-);
+router.put("/update/:id", (req, res) => {
+  const id = req.params.id;
+  const { body } = req;
+  Users.findByIdAndUpdate({ _id: id }, { $set: req.body }, { new: true })
+    .then(() => {
+      //
+      return res.json("update successfully");
+    })
+    .catch((err) => console.log(err));
+});
 
 router.get("/delete/:id", (res, req) => {
   const id = req.params.id;
