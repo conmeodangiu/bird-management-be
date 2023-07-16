@@ -13,6 +13,7 @@ router.get("/login", (req, res) => {
 
 router.get("/home", (req, res) => {
   const username = req.session.username;
+  const fullName = req.session.fullName;
   Events.find({})
     .populate("playerOne")
     .populate("playerTwo")
@@ -21,10 +22,10 @@ router.get("/home", (req, res) => {
       let history = [];
       for (let i = 0; i < eventHistory.length; i++) {
         const singleEvent = eventHistory[i];
-        if (singleEvent.playerOne.username === username) {history.push(singleEvent); }
+        if (singleEvent.playerOne.username === username || singleEvent.playerTwo.username === username) { history.push(singleEvent); }
       }
       Users.find({ username: { $ne: username } }).then((playerTwo) => {
-        res.render("home", { username, playerTwo, eventHistory: history });
+        res.render("home", { username, fullName, playerTwo, eventHistory: history });
       });
     });
 });
@@ -39,6 +40,7 @@ router.post("/login", (req, res) => {
             res.status(500).json("error comparing passwords");
           } else if (result) {
             req.session.username = found.username;
+            req.session.fullName = found.fullName ? found.fullName : "";
             const token = jwt.sign(found.toJSON(), process.env.secret);
             res.cookie("token", token, {
               httpOnly: true,
@@ -74,6 +76,7 @@ router.post("/register", (req, res) => {
             const newUser = new Users({
               username: body.username,
               password: hashedPassword,
+              fullName: body.fullName
             });
             newUser
               .save()

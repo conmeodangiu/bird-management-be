@@ -37,7 +37,7 @@
                             <a
                                 class="nav-link active"
                                 aria-current="page"
-                                href="auth/home"
+                                href="/auth/home"
                                 >Home</a
                             >
                         </li>
@@ -45,15 +45,17 @@
                             <a class="nav-link" href="/blog">Blog</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/user/list">User</a>
+                            <a class="nav-link" href="/user">Users</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin">Staff</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
-
         <main class="container mt-5">
-            <nav
+            <!-- <nav
                 class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top"
                 aria-label="Tenth navbar example"
             >
@@ -92,9 +94,9 @@
                         </ul>
                     </div>
                 </div>
-            </nav>
+            </nav> -->
             <h1 class="h3 mb-3 fw-normal" style="margin-top: 2rem">
-                Welcome back <%= username %>!
+                Welcome back <%= fullName %>!
             </h1>
             <p>Create your event</p>
             <form
@@ -110,7 +112,7 @@
                         type="text"
                         class="form-control"
                         id="username"
-                        value="<%= username %>"
+                        value="<%= fullName %>"
                         readonly
                         name="playerOne"
                     />
@@ -178,9 +180,11 @@
                 </thead>
                 <tbody>
                     <% for (let i = 0; i < eventHistory.length; i++) { %> <%
-                    const playerOne = eventHistory[i].playerOne.username; const
-                    playerTwo = eventHistory[i].playerTwo.username;
-                    console.log(playerOne) %>
+                    const playerOne = eventHistory[i].playerOne &&
+                    eventHistory[i].playerOne.fullName; const playerTwo =
+                    eventHistory[i].playerTwo &&
+                    eventHistory[i].playerTwo.fullName; console.log(playerOne)
+                    %>
                     <tr>
                         <th scope="row"><%=i + 1%></th>
                         <td><%=playerOne%></td>

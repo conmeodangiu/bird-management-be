@@ -24,7 +24,7 @@ router.post("/create", (req, res) => {
   Users.create(user)
     .then(() => {
       //
-      return res.json("create successfully");
+      return res.redirect("/admin");
     })
     .catch((err) => console.log(err));
 });
@@ -35,25 +35,17 @@ router.get("/edituser/:id", async (req, res) => {
   return res.render("edit-staff", { user: user });
 });
 
-router.put("/update/:id", (req, res) => {
-  const id = req.params.id;
-  const { body } = req;
-  Users.findByIdAndUpdate({ _id: id }, { $set: req.body }, { new: true })
-    .then(() => {
-      //
-      return res.redirect("/admin");
-    })
-    .catch((err) => console.log(err));
+router.post("/update/:id", async (req, res) => {
+  const { id } = req.params;
+  await Users.findByIdAndUpdate(id, { fullName: req.body.fullName });
+  return res.redirect("/admin");
 });
 
-router.get("/delete/:id", (res, req) => {
-  const id = req.params.id;
-  Users.findByIdAndDelete({ _id: id })
-    .then(() => {
-      //
-      return res.redirect("/admin");
-    })
-    .catch((err) => console.log(err));
+
+router.get("/delete/:id", async (req, res) => {
+  const { id } = req.params;
+  await Users.findByIdAndDelete(id)
+  return res.redirect("/admin");
 });
 
 module.exports = router;
