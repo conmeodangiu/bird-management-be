@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 
 const router = express.Router();
 
-router.get("/list", async (req, res) => {
+router.get("/", async (req, res) => {
   const userList = await Users.find({});
   return res.render("list", { userList });
 });
@@ -18,13 +18,13 @@ router.get("/edituser/:id", async (req, res) => {
 router.post("/update/:id", async (req, res) => {
   const { id } = req.params;
   await Users.findByIdAndUpdate(id, { fullName: req.body.username });
-  return res.redirect("/user/list");
+  return res.redirect("/user");
 });
 
-router.delete("/delete/:id", async (req, res) => {
-  const { id } = req.params.id;
+router.get("/delete/:id", async (req, res) => {
+  const { id } = req.params;
   await Users.findByIdAndDelete(id)
-  return res.json("delete successfully");
+  return res.redirect("/user");
 });
 
 module.exports = router;

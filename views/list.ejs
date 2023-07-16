@@ -81,53 +81,6 @@
             <div class="p-3 rounded">
                 <div class="d-flex flex-row">
                     <div
-                        class="d-flex flex-column flex-shrink-0 p-3 text-dark mb-5"
-                        style="border-right: 2px solid #e8eaee66"
-                    >
-                        <ul class="nav nav-pills flex-column mb-5">
-                            <li class="nav-item mb-4 si">
-                                <a
-                                    href="/user/list"
-                                    class="nav-link text-dark sidebar__item sidebar__item-isActive"
-                                >
-                                    User List
-                                </a>
-                            </li>
-                            <li class="mb-4">
-                                <a
-                                    href="#"
-                                    class="nav-link text-dark sidebar__item"
-                                >
-                                    Notifications
-                                </a>
-                            </li>
-                            <li class="mb-4">
-                                <a
-                                    href="#"
-                                    class="nav-link text-dark sidebar__item"
-                                >
-                                    Choose Plan
-                                </a>
-                            </li>
-                            <li class="mb-4">
-                                <a
-                                    href="#"
-                                    class="nav-link text-dark sidebar__item"
-                                >
-                                    Password & Security
-                                </a>
-                            </li>
-                            <li class="nav-item mb-4 si">
-                                <a
-                                    href="#"
-                                    class="nav-link text-dark sidebar__item"
-                                >
-                                    Voucher
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div
                         class="container-fluid d-flex flex-column px-5 text-dark"
                     >
                         <h3 class="mb-5">Edit Users</h3>
@@ -160,8 +113,8 @@
                                                 >
                                             </button>
                                             <form
-                                                method="DELETE"
-                                                action="/user/delete/<%= user.id %>"
+                                                method="get"
+                                                action="/user/delete/<%= user._id %>"
                                             >
                                                 <button
                                                     type="submit"

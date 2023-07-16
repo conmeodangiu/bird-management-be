@@ -87,7 +87,7 @@
                                 <a class="nav-link" href="/blog">Blog</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/user/list">User</a>
+                                <a class="nav-link" href="/user">User</a>
                             </li>
                         </ul>
                     </div>
@@ -97,7 +97,11 @@
                 Welcome back <%= username %>!
             </h1>
             <p>Create your event</p>
-            <form class="row g-3" method="post" action="/event/create-new-event">
+            <form
+                class="row g-3"
+                method="post"
+                action="/event/create-new-event"
+            >
                 <div class="col-md-6">
                     <label for="inputEmail4" class="form-label"
                         >Your Name</label
@@ -115,9 +119,15 @@
                     <label for="inputState" class="form-label"
                         >Choose player 2</label
                     >
-                    <select id="inputState" class="form-select" name="playerTwo">
+                    <select
+                        id="inputState"
+                        class="form-select"
+                        name="playerTwo"
+                    >
                         <% for(let i = 0; i < users.length; i++) { %>
-                            <option value="<%=users[i]._id%>"><%=users[i].fullName%></option>
+                        <option value="<%=users[i]._id%>">
+                            <%=users[i].fullName%>
+                        </option>
                         <% } %>
                     </select>
                 </div>
