@@ -96,10 +96,10 @@
                 Welcome back <%= username %>!
             </h1>
             <p>Create your event</p>
-            <form class="row g-3">
+            <form class="row g-3" method="post" action="/event/create-new-event">
                 <div class="col-md-6">
                     <label for="inputEmail4" class="form-label"
-                        >Your User Name</label
+                        >Your Name</label
                     >
                     <input
                         type="text"
@@ -107,15 +107,17 @@
                         id="username"
                         value="<%= username %>"
                         readonly
+                        name="playerOne"
                     />
                 </div>
                 <div class="col-md-4">
                     <label for="inputState" class="form-label"
                         >Choose player 2</label
                     >
-                    <select id="inputState" class="form-select">
-                        <option selected>Choose...</option>
-                        <option>...</option>
+                    <select id="inputState" class="form-select" name="playerTwo">
+                        <% for(let i = 0; i < users.length; i++) { %>
+                            <option value="<%=users[i]._id%>"><%=users[i].fullName%></option>
+                        <% } %>
                     </select>
                 </div>
 
@@ -127,6 +129,7 @@
                         type="datetime-local"
                         class="form-control"
                         id="date"
+                        name="date"
                     />
                 </div>
 
@@ -138,7 +141,7 @@
                         type="text"
                         class="form-control"
                         id="titlematch"
-                        name="titlematch"
+                        name="titleMatch"
                     />
                 </div>
                 <div class="col-12">
