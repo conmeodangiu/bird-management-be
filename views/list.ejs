@@ -68,6 +68,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#">Blog</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/user/list">User</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -84,7 +87,7 @@
                         <ul class="nav nav-pills flex-column mb-5">
                             <li class="nav-item mb-4 si">
                                 <a
-                                    href="user.html"
+                                    href="/user/list"
                                     class="nav-link text-dark sidebar__item sidebar__item-isActive"
                                 >
                                     User List
@@ -132,23 +135,24 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th scope="col">No</th>
+                                        <th scope="col">username</th>
                                         <th scope="col">Full name</th>
                                         <th scope="col">Role</th>
                                         <th scope="col">Handle</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <% userList.forEach(function(user) { %>
                                     <tr>
-                                        <th scope="row">1</th>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
+                                        <td><% user.username%></td>
+                                        <td><% user.fullName %></td>
+                                        <td><% user.role%></td>
                                         <td>
                                             <button
                                                 type="button"
                                                 class="btn btn-success"
                                             >
-                                                Success
+                                                Update
                                             </button>
                                             <button
                                                 type="button"
@@ -158,43 +162,7 @@
                                             </button>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>
-                                            <button
-                                                type="button"
-                                                class="btn btn-success"
-                                            >
-                                                Success
-                                            </button>
-                                            <button
-                                                type="button"
-                                                class="btn btn-danger"
-                                            >
-                                                Delete
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td colspan="2">Larry the Bird</td>
-                                        <td>
-                                            <button
-                                                type="button"
-                                                class="btn btn-success"
-                                            >
-                                                Success
-                                            </button>
-                                            <button
-                                                type="button"
-                                                class="btn btn-danger"
-                                            >
-                                                Delete
-                                            </button>
-                                        </td>
-                                    </tr>
+                                    <% })%>
                                 </tbody>
                             </table>
                         </div>

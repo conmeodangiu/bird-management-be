@@ -10,7 +10,8 @@ const mongoose = require("mongoose");
 const isAuthorized = require("./isAuthorized");
 const authRoute = require("./routes/auth");
 const adminRoute = require("./routes/adminRoute");
-const managerRoute = require("./routes/managerRoute");
+// const managerRoute = require("./routes/managerRoute");
+const userRoute = require("./routes/userRoute")
 const staffRoute = require("./routes/staffRoute");
 require("dotenv").config();
 
@@ -45,7 +46,8 @@ app.get("/", (_, res) => {
 });
 app.use("/auth", authRoute);
 app.use("/admin", adminRoute);
-app.use("/manager", managerRoute);
+app.use("/user", userRoute);
+// app.use("/manager" , managerRoute);
 app.use("/staff", staffRoute);
 
 app.listen("3000", () => {
