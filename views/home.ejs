@@ -166,8 +166,8 @@
                 </thead>
                 <tbody>
                     <% for (let i = 0; i < eventHistory.length; i++) { %>
-                    <% const playerOne = eventHistory[i].playerOne.username;
-                    const playerTwo = eventHistory[i].playerTwo.username;
+                    <% const playerOne = eventHistory[i].playerOne && eventHistory[i].playerOne.username;
+                    const playerTwo = eventHistory[i].playerTwo && eventHistory[i].playerTwo.username;
                         console.log(playerOne)
                     %>
                   <tr>
