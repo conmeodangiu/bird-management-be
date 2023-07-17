@@ -7,7 +7,7 @@ const isAuthorized = (req, res, next) => {
   const { baseUrl, method } = req;
   if (baseUrl === "/blog" && method === "GET") {
     const path = req.path.split("/");
-    console.log(path)
+    console.log(path);
     if (
       path.includes("edit") ||
       path.includes("create") ||
@@ -47,6 +47,9 @@ const isAuthorized = (req, res, next) => {
       baseUrl === "/event" &&
       (user.role === "MEMBER" || user.role === "STAFF")
     ) {
+      req.user = user;
+      return next();
+    } else if (baseUrl === "/user" && user.role === "ADMIN") {
       req.user = user;
       return next();
     } else {
