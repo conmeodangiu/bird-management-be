@@ -9,6 +9,7 @@
             rel="stylesheet"
         />
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
     </head>
     <body>
         <nav
@@ -167,38 +168,85 @@
         <%if (typeof eventHistory != "undefined" && eventHistory.length > 0) {
         %>
         <main class="container mt-5">
-            <h1>Match History</h1>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">You vs.</th>
-                        <th scope="col">Player</th>
-                        <th scope="col">At</th>
-                        <th scope="col">Title</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% for (let i = 0; i < eventHistory.length; i++) { %> <%
-                    const playerOne = eventHistory[i].playerOne &&
-                    eventHistory[i].playerOne.fullName; const playerTwo =
-                    eventHistory[i].playerTwo &&
-                    eventHistory[i].playerTwo.fullName; console.log(playerOne)
-                    %>
-                    <tr>
-                        <th scope="row"><%=i + 1%></th>
-                        <td><%=playerOne%></td>
-                        <td><%=playerTwo%></td>
-                        <td>
-                            <%=eventHistory[i].date.toString().replace(/\sGMT\+\d+\s\(.+\)$/,
-                            "")%>
-                        </td>
-                        <td><%=eventHistory[i].titleMatch%></td>
-                    </tr>
-                    <% } %>
-                </tbody>
-            </table>
+            <div class="row">
+                <div class="col-6">
+                    <h1>Match History</h1>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">You vs.</th>
+                                <th scope="col">Player</th>
+                                <th scope="col">At</th>
+                                <th scope="col">Title</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <%for (let i = 0; i < eventHistory.length; i++) { %>
+                            <% const playerOne = eventHistory[i].playerOne &&
+                            eventHistory[i].playerOne.fullName; const playerTwo
+                            = eventHistory[i].playerTwo &&
+                            eventHistory[i].playerTwo.fullName;
+                            console.log(playerOne) %>
+                            <tr>
+                                <th scope="row"><%=i + 1%></th>
+                                <td><%=playerOne%></td>
+                                <td><%=playerTwo%></td>
+                                <td>
+                                    <%=eventHistory[i].date.toString().replace(/\sGMT\+\d+\s\(.+\)$/,
+                                    "")%>
+                                </td>
+                                <td><%=eventHistory[i].titleMatch%></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-6">
+                    <h1>Match Dashboard</h1>
+                    <canvas
+                        id="myChart"
+                        style="width: 100%; max-width: 700px"
+                    ></canvas>
+                </div>
+            </div>
         </main>
+
+        <script>
+            var xyValues = [
+                { x: 1, y: 1 },
+                { x: 2, y: 1 },
+                { x: 3, y: 1 },
+                { x: 4, y: 1 },
+                { x: 5, y: 1 },
+                { x: 6, y: 1 },
+                { x: 7, y: 1 },
+                { x: 8, y: 1 },
+                { x: 9, y: 1 },
+                { x: 10, y: 1 },
+                { x: 11, y: 1 },
+                { x: 12, y: 1 },
+            ];
+            // var xyValues = <%=match%>
+            new Chart("myChart", {
+                type: "scatter",
+                data: {
+                    datasets: [
+                        {
+                            pointRadius: 5,
+                            pointBackgroundColor: "rgb(0,0,255)",
+                            data: xyValues,
+                        },
+                    ],
+                },
+                options: {
+                    legend: { display: false },
+                    scales: {
+                        xAxes: [{ ticks: { min: 1, max: 12 } }],
+                        yAxes: [{ ticks: { min: 0, max: 25 } }],
+                    },
+                },
+            });
+        </script>
         <% } %>
     </body>
 </html>
