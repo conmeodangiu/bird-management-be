@@ -48,7 +48,7 @@ app.get("/", (_, res) => {
 });
 app.use("/auth", authRoute);
 app.use("/admin", adminRoute);
-app.use("/user", userRoute)
+app.use("/user", isAuthorized, userRoute)
 app.use("/staff", isAuthorized, staffRoute);
 app.use("/event", isAuthorized, eventRoute);
 app.use("/blog", isAuthorized, blogRoute);
