@@ -1,192 +1,155 @@
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="" />
-    <meta
-      name="author"
-      content="Mark Otto, Jacob Thornton, and Bootstrap contributors"
-    />
-    <meta name="generator" content="Hugo 0.84.0" />
-    <title>Blog</title>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" content="" />
+        <meta
+            name="author"
+            content="Mark Otto, Jacob Thornton, and Bootstrap contributors"
+        />
+        <meta name="generator" content="Hugo 0.84.0" />
+        <title>Blog</title>
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+        />
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+        <link
+            rel="canonical"
+            href="https://getbootstrap.com/docs/5.0/examples/carousel/"
+        />
 
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-
-    <meta name="theme-color" content="#7952b3" />
-
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <header>
-      <div class="bg-dark collapse" id="navbarHeader" style="">
-        <div class="container">
-          <div class="row">
-            <div class="col-sm-8 col-md-7 py-4">
-              <h4 class="text-white">About</h4>
-              <p class="text-muted">
-                Birds are a group of warm-blooded vertebrates constituting the
-                class Aves, characterised by feathers, toothless beaked jaws,
-                the laying of hard-shelled eggs, a high metabolic rate, a
-                four-chambered heart, and a strong yet lightweight skeleton.
-              </p>
-            </div>
-            <div class="col-sm-4 offset-md-1 py-4">
-              <h4 class="text-white">Contact</h4>
-              <ul class="list-unstyled">
-                <li>
-                  <a
-                    href="https://www.facebook.com/phuong74200"
-                    class="text-white"
-                    >Follow on Twitter</a
-                  >
-                </li>
-                <li>
-                  <a
-                    href="https://www.facebook.com/phuong74200"
-                    class="text-white"
-                    >Like on Facebook</a
-                  >
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="navbar navbar-dark bg-dark shadow-sm">
-        <div class="container">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="/"style="color: white;text-decoration: none;">Home</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">Blog</li>
-                  <li class="breadcrumb-item"><a href="/user" style="color: white;text-decoration: none;">Users</a></li>
-                  <li class="breadcrumb-item"><a href="/admin"style="color: white;text-decoration: none;">Staff</a></li>
-
-                </ol>
-              </nav>
-          <button
-            class="navbar-toggler collapsed"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarHeader"
-            aria-controls="navbarHeader"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-        </div>
-      </div>
-    </header>
-
-    <main>
-      <section class="py-5 text-center container">
-        <div class="row py-lg-5">
-          <div class="col-lg-6 col-md-8 mx-auto">
-            <h1 class="fw-light">About our system</h1>
-            <p class="lead text-muted">
-              "Everyone likes birds. What wild creature is more accessible to
-              our eyes and ears, as close to us and everyone in the world, as
-              universal as a bird?"
-            </p>
-            <p>
-              <a href="./view-blog" class="btn btn-primary my-2"
-                >Read More</a
-              >
-            </p>
-          </div>
-        </div>
-      </section>
-      <div class="container">
-        <div class="row row-cols-1 row-cols-md-2 g-4">
-          <% for(var i=0; i < blogs.length; i++) { %>
-          <div class="col-3">
-            <div class="card h-100">
-              <img
-                class="object-fit-cover border rounded"
-                height="200"
-                width="auto"
-                src="<%= blogs[i].image %>"
-                class="card-img-top"
-                alt="..."
-                onerror="this.src='https://boodabike.com/wp-content/uploads/2023/03/no-image.jpg'"
-              />
-              <div class="card-body">
-                <h5 class="card-title"><%= blogs[i].title %></h5>
-                <p class="card-text text-truncate"><%- blogs[i].body %></p>
-                <div class="d-flex justify-content-between">
-                  <a
-                    href="/blog/<%= blogs[i]._id %>"
-                    class="btn btn-primary card-text"
-                    >Details</a
-                  >
-                  <% if (isAdmin) { %>
-                  <a
-                    href="/admin/blog/edit/<%= blogs[i]._id %>"
-                    class="btn btn-primary card-text"
-                    >Edit</a
-                  >
-                  <% } %>
-                </div>
-              </div>
-            </div>
-          </div>
-          <% } %> <% if (isAdmin) { %>
-          <div class="col-3">
-            <a href="/admin/blog/create">
-              <div class="card h-100">
+        <link href="carousel.css" rel="stylesheet" />
+        <style>
+            a {
+                text-decoration: none;
+            }
+        </style>
+    </head>
+    <body>
+        <header class="p-3 bg-dark text-white fixed-top">
+            <div class="container">
                 <div
-                  class="card-body d-flex justify-content-center d-flex align-items-center"
-                  style="font-size: 2rem"
+                    class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start"
                 >
-                  <i class="bi bi-plus-square-fill"></i>
+                    <ul
+                        class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"
+                    >
+                        <li>
+                            <a
+                                href="/auth/home"
+                                class="nav-link px-2 text-white"
+                                >Home</a
+                            >
+                        </li>
+                        <li>
+                            <a href="/blog" class="nav-link px-2 text-white"
+                                >Blog</a
+                            >
+                        </li>
+                        <li>
+                            <a href="/staff" class="nav-link px-2 text-white"
+                                >Staff Manage</a
+                            >
+                        </li>
+                        <li>
+                            <a href="/admin" class="nav-link px-2 text-white"
+                                >Admin Manage</a
+                            >
+                        </li>
+                    </ul>
+
+                    <div class="text-end">
+                        <button
+                            type="button"
+                            class="btn btn-outline-light me-2"
+                        >
+                            <a href="/auth/login">Login</a>
+                        </button>
+                        <button type="button" class="btn btn-warning">
+                            <a href="/auth/register">Sign-up</a>
+                        </button>
+                    </div>
                 </div>
-              </div>
-            </a>
-          </div>
-          <% } %>
-        </div>
-      </div>
-    </main>
+            </div>
+        </header>
 
-    <footer class="text-muted py-5">
-      <div class="container">
-        <p class="float-end mb-1">
-          <a href="#">Back to top</a>
-        </p>
-        <p class="mb-1">
-          Album example is © Bootstrap, but please download and customize it for
-          yourself!
-        </p>
-        <p class="mb-0">
-          New to Bootstrap? <a href="/">Visit the homepage</a> or read our
-          <a href="/docs/5.0/getting-started/introduction/"
-            >getting started guide</a
-          >.
-        </p>
-      </div>
-    </footer>
+        <main class="mb-5">
+            <section class="py-5 text-center container">
+                <div class="row py-lg-5">
+                    <div class="col-lg-6 col-md-8 mx-auto">
+                        <h1 class="fw-light">About our system</h1>
+                        <p class="lead text-muted">
+                            "Everyone likes birds. What wild creature is more
+                            accessible to our eyes and ears, as close to us and
+                            everyone in the world, as universal as a bird?"
+                        </p>
+                        <p>
+                            <a href="./view-blog" class="btn btn-primary my-2"
+                                >Read More</a
+                            >
+                        </p>
+                    </div>
+                </div>
+            </section>
+            <div class="container">
+                <div class="row row-cols-1 row-cols-md-2 g-4">
+                    <% for(var i=0; i < blogs.length; i++) { %>
+                    <div class="col-3">
+                        <div class="card h-100">
+                            <img
+                                class="object-fit-cover border rounded"
+                                height="200"
+                                width="auto"
+                                src="<%= blogs[i].image %>"
+                                class="card-img-top"
+                                alt="..."
+                                onerror="this.src='https://boodabike.com/wp-content/uploads/2023/03/no-image.jpg'"
+                            />
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <%= blogs[i].title %>
+                                </h5>
+                                <p class="card-text text-truncate">
+                                    <%- blogs[i].body %>
+                                </p>
+                                <div class="d-flex justify-content-between">
+                                    <a
+                                        href="/blog/<%= blogs[i]._id %>"
+                                        class="btn btn-primary card-text"
+                                        >Details</a
+                                    >
+                                    <% if (isAdmin) { %>
+                                    <a
+                                        href="/admin/blog/edit/<%= blogs[i]._id %>"
+                                        class="btn btn-primary card-text"
+                                        >Edit</a
+                                    >
+                                    <% } %>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <% } %> <% if (isAdmin) { %>
+                    <div class="col-3">
+                        <a href="/admin/blog/create">
+                            <div class="card h-100">
+                                <div
+                                    class="card-body d-flex justify-content-center d-flex align-items-center"
+                                    style="font-size: 2rem"
+                                >
+                                    <i class="bi bi-plus-square-fill"></i>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <% } %>
+                </div>
+            </div>
+        </main>
 
-    <script
-      src="/docs/5.0/dist/js/bootstrap.bundle.min.js"
+        <%- include('footer'); %>
 
-    ></script>
-  </body>
+        <script src="/docs/5.0/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
 </html>

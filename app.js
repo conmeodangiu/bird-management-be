@@ -50,7 +50,7 @@ app.use("/admin", isAuthorized(["ADMIN"]), adminRoute);
 app.use("/user", isAuthorized(["ADMIN"]), userRoute);
 app.use("/staff", isAuthorized(["STAFF"]), staffRoute);
 app.use("/event", isAuthorized(["MEMBER"]), eventRoute);
-app.use("/blog", isAuthorized(["ADMIN", "GUEST"]), blogRoute);
+app.use("/blog", isAuthorized(["ADMIN", "GUEST", "STAFF", "MEMBER"]), blogRoute);
 
 app.listen("3000", () => {
   console.log("listening on 3000");

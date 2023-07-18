@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Events = require("../schema/event");
 
+
 // create new event
 router.post("/create-new-event", (req, res) => {
   const user = req.user;

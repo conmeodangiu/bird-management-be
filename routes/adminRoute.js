@@ -4,30 +4,46 @@ const express = require("express");
 const router = express.Router();
 const Users = require("../schema/user");
 const Blog = require("../schema/blog");
+const bcrypt = require("bcrypt");
 
 router.get("/", (_, res) => {
   Users.find()
-    .then((user) => {
-      //
-      return res.render("admin", { user });
+    .then((userList) => {
+      const users = userList.filter(userList => !(userList.role === "ADMIN"));
+      return res.render("admin", { users });
     })
     .catch((err) => console.log(err));
 });
 
 router.post("/create", (req, res) => {
   const { body } = req;
-  const user = new Users({
-    username: body.username,
-    password: body.password,
-    fullName: body.fullName,
-    role: "STAFF",
-  });
-  Users.create(user)
-    .then(() => {
-      //
-      return res.redirect("/admin");
-    })
-    .catch((err) => console.log(err));
+  Users.findOne({ username: body.username })
+    .exec()
+    .then((result) => {
+      if (result) {
+        res.status(400).json("duplicate user");
+      } else {
+        bcrypt.hash(body.password, 10, (err, hashedPassword) => {
+          if (err) {
+            res.status(500).json("error hashing password");
+          } else {
+            const newUser = new Users({
+              username: body.username,
+              password: body.password,
+              fullName: body.fullName,
+              role: "STAFF",
+            });
+            Users.create(newUser)
+              .then(() => {
+                //
+                return res.redirect("/admin");
+              })
+              .catch((err) => console.log(err));
+          }
+        });
+      }
+    });
+
 });
 
 router.get("/edit/:id", async (req, res) => {

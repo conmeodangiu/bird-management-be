@@ -1,20 +1,30 @@
 const express = require("express");
-const router = express.Router();
-const Event = require("../schema/event");
+const Users = require("../schema/user");
+const bcrypt = require("bcrypt");
 
-router.get("/", (req, res) => {
-  Event.find({}).then((event) => {
-    //
-    return res.json(event);
-  });
+const router = express.Router();
+
+router.get("/", async (req, res) => {
+  const user = await Users.find({ role: "MEMBER" });
+  return res.render("staff", { user: user });
 });
 
-router.get("/delete:/id", (req, res) => {
+router.get("/edit/:id", async (req, res) => {
   const id = req.params.id;
-  Event.findByIdAndDelete({ _id: id }).then(() => {
-    //
-    return res.json("delete successfully");
-  });
+  const user = await Users.findOne({ _id: id })
+  return res.render("edit-staff", { user: user });
+});
+
+router.post("/update/:id", async (req, res) => {
+  const { id } = req.params;
+  await Users.findByIdAndUpdate(id, { fullName: req.body.username });
+  return res.redirect("/staff");
+});
+
+router.get("/delete/:id", async (req, res) => {
+  const { id } = req.params;
+  await Users.findByIdAndDelete(id)
+  return res.redirect("/staff");
 });
 
 module.exports = router;

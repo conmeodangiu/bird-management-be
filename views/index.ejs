@@ -20,6 +20,11 @@
         />
 
         <link href="carousel.css" rel="stylesheet" />
+        <style>
+            a {
+                text-decoration: none;
+            }
+        </style>
     </head>
     <body>
         <header class="p-3 bg-dark text-white fixed-top">
@@ -31,28 +36,25 @@
                         class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"
                     >
                         <li>
-                            <a href="#" class="nav-link px-2 text-white"
+                            <a
+                                href="/auth/home"
+                                class="nav-link px-2 text-white"
                                 >Home</a
                             >
                         </li>
                         <li>
-                            <a href="#" class="nav-link px-2 text-white"
-                                >Features</a
+                            <a href="/blog" class="nav-link px-2 text-white"
+                                >Blog</a
                             >
                         </li>
                         <li>
-                            <a href="#" class="nav-link px-2 text-white"
-                                >Pricing</a
+                            <a href="/staff" class="nav-link px-2 text-white"
+                                >Staff Manage</a
                             >
                         </li>
                         <li>
-                            <a href="#" class="nav-link px-2 text-white"
-                                >FAQs</a
-                            >
-                        </li>
-                        <li>
-                            <a href="#" class="nav-link px-2 text-white"
-                                >About</a
+                            <a href="/admin" class="nav-link px-2 text-white"
+                                >Admin Manage</a
                             >
                         </li>
                     </ul>
@@ -294,109 +296,9 @@
 
                 <hr class="featurette-divider" />
             </div>
-
-            <div class="container-fluid bg-dark">
-                <footer class="p-5">
-                    <div class="row">
-                        <div class="col-6 col-md-2 mb-3">
-                            <h5 class="text-white">Section</h5>
-                            <ul class="nav flex-column">
-                                <li class="nav-item mb-2">
-                                    <a href="#" class="nav-link p-0 text-muted"
-                                        >Home</a
-                                    >
-                                </li>
-                                <li class="nav-item mb-2">
-                                    <a href="#" class="nav-link p-0 text-muted"
-                                        >Features</a
-                                    >
-                                </li>
-                                <li class="nav-item mb-2">
-                                    <a href="#" class="nav-link p-0 text-muted"
-                                        >Pricing</a
-                                    >
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div class="col-6 col-md-2 mb-3">
-                            <h5 class="text-white">Section</h5>
-                            <ul class="nav flex-column">
-                                <li class="nav-item mb-2">
-                                    <a href="#" class="nav-link p-0 text-muted"
-                                        >Home</a
-                                    >
-                                </li>
-                                <li class="nav-item mb-2">
-                                    <a href="#" class="nav-link p-0 text-muted"
-                                        >Features</a
-                                    >
-                                </li>
-                                <li class="nav-item mb-2">
-                                    <a href="#" class="nav-link p-0 text-muted"
-                                        >Pricing</a
-                                    >
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div class="col-6 col-md-2 mb-3">
-                            <h5 class="text-white">Section</h5>
-                            <ul class="nav flex-column">
-                                <li class="nav-item mb-2">
-                                    <a href="#" class="nav-link p-0 text-muted"
-                                        >Home</a
-                                    >
-                                </li>
-                                <li class="nav-item mb-2">
-                                    <a href="#" class="nav-link p-0 text-muted"
-                                        >Features</a
-                                    >
-                                </li>
-                                <li class="nav-item mb-2">
-                                    <a href="#" class="nav-link p-0 text-muted"
-                                        >Pricing</a
-                                    >
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div class="col-md-5 offset-md-1 mb-3">
-                            <form>
-                                <h5 class="text-white">
-                                    Subscribe to our newsletter
-                                </h5>
-                                <p class="text-white">
-                                    Monthly digest of what's new and exciting
-                                    from us.
-                                </p>
-                                <div
-                                    class="d-flex flex-column flex-sm-row w-100 gap-2"
-                                >
-                                    <label
-                                        for="newsletter1"
-                                        class="visually-hidden"
-                                        >Email address</label
-                                    >
-                                    <input
-                                        id="newsletter1"
-                                        type="text"
-                                        class="form-control"
-                                        placeholder="Email address"
-                                    />
-                                    <button
-                                        class="btn btn-primary"
-                                        type="button"
-                                    >
-                                        Subscribe
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </footer>
-            </div>
         </main>
+
+        <%- include('footer'); %>
 
         <script
             src="/docs/5.0/dist/js/bootstrap.bundle.min.js"
