@@ -5,7 +5,7 @@ const router = express.Router();
 const Users = require("../schema/user");
 
 router.get("/", (_, res) => {
-  Users.find({ role: "STAFF" })
+  Users.find({ role: "MEMBER" })
     .then((user) => {
       //
       return res.render("admin", { user });;
