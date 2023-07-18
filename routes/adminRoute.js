@@ -5,7 +5,7 @@ const router = express.Router();
 const Users = require("../schema/user");
 
 router.get("/", (_, res) => {
-  Users.find({ role: "MEMBER" })
+  Users.find()
     .then((user) => {
       //
       return res.render("admin", { user });;
@@ -29,10 +29,10 @@ router.post("/create", (req, res) => {
     .catch((err) => console.log(err));
 });
 
-router.get("/edituser/:id", async (req, res) => {
+router.get("/edit/:id", async (req, res) => {
   const id = req.params.id;
   const user = await Users.findOne({ _id: id })
-  return res.render("edit-staff", { user: user });
+  return res.render("edit-admin", { user: user });
 });
 
 router.post("/update/:id", async (req, res) => {

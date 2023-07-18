@@ -79,7 +79,7 @@
             </div>
         </nav>
 
-        <!-- Content -->
+        <h1 style="text-align: center">User Management</h1>
         <main class="container mt-5">
             <div class="p-3 rounded">
                 <div class="d-flex flex-row">
@@ -87,6 +87,7 @@
                         class="container-fluid d-flex flex-column px-5 text-dark"
                     >
                         <div class="mb-5">
+                            <h3>Create Staff</h3>
                             <form method="post" action="/admin/create">
                                 <div class="mb-3">
                                     <label
@@ -137,16 +138,18 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">No</th>
+                                        <th scope="col">Username</th>
                                         <th scope="col">Full name</th>
                                         <th scope="col">Role</th>
                                         <th scope="col">Create at</th>
-                                        <th scope="col">Handle</th>
+                                        <th scope="col">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <% let i = 0; user.forEach(user => { i++;%>
                                     <tr>
                                         <td><%= i %></td>
+                                        <td><%= user.username %></td>
                                         <td><%= user.fullName %></td>
                                         <td><%= user.role%></td>
                                         <td>
@@ -160,7 +163,7 @@
                                                 class="btn btn-success"
                                             >
                                                 <a
-                                                    href="/admin/edituser/<%= user._id %>"
+                                                    href="/admin/edit/<%= user._id %>"
                                                     style="
                                                         color: white;
                                                         text-decoration: none;

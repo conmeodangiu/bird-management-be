@@ -5,11 +5,11 @@ const bcrypt = require("bcrypt");
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-  const userList = await Users.find({});
-  return res.render("list", { userList });
+  const user = await Users.find({ role: "MEMBER" });
+  return res.render("user", { user: user });
 });
 
-router.get("/edituser/:id", async (req, res) => {
+router.get("/edit/:id", async (req, res) => {
   const id = req.params.id;
   const user = await Users.findOne({ _id: id })
   return res.render("edit-user", { user: user });

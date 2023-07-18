@@ -12,51 +12,8 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
     </head>
     <body>
-        <!-- <nav
-            class="navbar navbar-expand-lg navbar-dark bg-dark fixed- mb-5"
-            aria-label="Tenth navbar example"
-        >
-            <div class="container-fluid">
-                <button
-                    class="navbar-toggler"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#navbarsExample08"
-                    aria-controls="navbarsExample08"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation"
-                >
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div
-                    class="collapse navbar-collapse justify-content-md-center"
-                    id="navbarsExample08"
-                >
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a
-                                class="nav-link active"
-                                aria-current="page"
-                                href="/auth/home"
-                                >Home</a
-                            >
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/blog">Blog</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/user">Users</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/admin">Staff</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav> -->
-        <header class="p-5 bg-dark text-white">
-            <div class="container-fluid">
+        <header class="p-3 bg-dark text-white fixed-top">
+            <div class="container">
                 <div
                     class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start"
                 >
@@ -64,164 +21,115 @@
                         class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"
                     >
                         <li>
-                            <a href="#" class="nav-link px-2 text-secondary"
+                            <a
+                                href="/auth/home"
+                                class="nav-link px-2 text-white"
                                 >Home</a
                             >
                         </li>
                         <li>
-                            <a href="#" class="nav-link px-2 text-white"
-                                >Features</a
+                            <a href="/blog" class="nav-link px-2 text-white"
+                                >Blog</a
                             >
                         </li>
                         <li>
-                            <a href="#" class="nav-link px-2 text-white"
-                                >Pricing</a
+                            <a href="/user" class="nav-link px-2 text-white"
+                                >Users</a
                             >
                         </li>
                         <li>
-                            <a href="#" class="nav-link px-2 text-white"
-                                >FAQs</a
-                            >
-                        </li>
-                        <li>
-                            <a href="#" class="nav-link px-2 text-white"
-                                >About</a
+                            <a href="/admin" class="nav-link px-2 text-white"
+                                >Staff</a
                             >
                         </li>
                     </ul>
-
-                    <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-                        <input
-                            type="search"
-                            class="form-control form-control-dark"
-                            placeholder="Search..."
-                            aria-label="Search"
-                        />
-                    </form>
 
                     <div class="text-end">
                         <button
                             type="button"
                             class="btn btn-outline-light me-2"
                         >
-                            Login
+                            <a href="/auth/login">Login</a>
                         </button>
                         <button type="button" class="btn btn-warning">
-                            Sign-up
+                            <a href="/auth/register">Sign-up</a>
                         </button>
                     </div>
                 </div>
             </div>
         </header>
-        <main class="container mt-5">
-            <!-- <nav
-                class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top"
-                aria-label="Tenth navbar example"
-            >
-                <div class="container-fluid">
-                    <button
-                        class="navbar-toggler"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#navbarsExample08"
-                        aria-controls="navbarsExample08"
-                        aria-expanded="false"
-                        aria-label="Toggle navigation"
-                    >
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
 
-                    <div
-                        class="collapse navbar-collapse justify-content-md-center"
-                        id="navbarsExample08"
-                    >
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a
-                                    class="nav-link active"
-                                    aria-current="page"
-                                    href="#"
-                                    >Home</a
-                                >
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/blog">Blog</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/user">User</a>
-                            </li>
-                        </ul>
+        <main>
+            <div class="container marketing" style="margin-top: 5rem">
+                <h1 class="h3 mb-3 fw-normal" style="margin-top: 2rem">
+                    Welcome back <%= fullName %>!
+                </h1>
+                <p>Create your event</p>
+                <form
+                    class="row g-3"
+                    method="post"
+                    action="/event/create-new-event"
+                >
+                    <div class="col-md-6">
+                        <label for="inputEmail4" class="form-label"
+                            >Your Name</label
+                        >
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="username"
+                            value="<%= fullName %>"
+                            readonly
+                            name="playerOne"
+                        />
                     </div>
-                </div>
-            </nav> -->
-            <h1 class="h3 mb-3 fw-normal" style="margin-top: 2rem">
-                Welcome back <%= fullName %>!
-            </h1>
-            <p>Create your event</p>
-            <form
-                class="row g-3"
-                method="post"
-                action="/event/create-new-event"
-            >
-                <div class="col-md-6">
-                    <label for="inputEmail4" class="form-label"
-                        >Your Name</label
-                    >
-                    <input
-                        type="text"
-                        class="form-control"
-                        id="username"
-                        value="<%= fullName %>"
-                        readonly
-                        name="playerOne"
-                    />
-                </div>
-                <div class="col-md-4">
-                    <label for="inputState" class="form-label"
-                        >Choose player 2</label
-                    >
-                    <select
-                        id="inputState"
-                        class="form-select"
-                        name="playerTwo"
-                    >
-                        <% for(let i = 0; i < playerTwo.length; i++) { %>
-                        <option value="<%=playerTwo[i]._id%>">
-                            <%=playerTwo[i].fullName%>
-                        </option>
-                        <% } %>
-                    </select>
-                </div>
-
-                <div class="col-md-6">
-                    <label for="inputCity" class="form-label"
-                        >Choose your date</label
-                    >
-                    <input
-                        type="datetime-local"
-                        class="form-control"
-                        id="date"
-                        name="date"
-                    />
-                </div>
-
-                <div class="col-md-4">
-                    <label for="inputPassword4" class="form-label"
-                        >Match Name</label
-                    >
-                    <input
-                        type="text"
-                        class="form-control"
-                        id="titlematch"
-                        name="titleMatch"
-                    />
-                </div>
-                <div class="col-12">
-                    <button type="submit" class="btn btn-primary">
-                        Create
-                    </button>
-                </div>
-            </form>
+                    <div class="col-md-4">
+                        <label for="inputState" class="form-label"
+                            >Choose player 2</label
+                        >
+                        <select
+                            id="inputState"
+                            class="form-select"
+                            name="playerTwo"
+                        >
+                            <% for(let i = 0; i < playerTwo.length; i++) { %>
+                            <option value="<%=playerTwo[i]._id%>">
+                                <%=playerTwo[i].fullName%>
+                            </option>
+                            <% } %>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputCity" class="form-label"
+                            >Choose your date</label
+                        >
+                        <input
+                            type="datetime-local"
+                            class="form-control"
+                            id="date"
+                            name="date"
+                            required
+                        />
+                    </div>
+                    <div class="col-md-4">
+                        <label for="inputPassword4" class="form-label"
+                            >Match Name</label
+                        >
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="titlematch"
+                            name="titleMatch"
+                            required
+                        />
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary">
+                            Create
+                        </button>
+                    </div>
+                </form>
+            </div>
         </main>
         <%if (typeof eventHistory != "undefined" && eventHistory.length > 0) {
         %>
