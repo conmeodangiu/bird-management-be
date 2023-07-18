@@ -5,7 +5,7 @@ require("dotenv").config();
 const isAuthorized = (roles) => (req, res, next) => {
   const token = req.cookies.token;
 
-  if (roles.includes("GUEST")) {
+  if (roles.includes("GUEST") && !token) {
     const user = new Users({
       role: "GUEST",
     });
