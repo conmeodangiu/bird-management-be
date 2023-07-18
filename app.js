@@ -10,8 +10,7 @@ const mongoose = require("mongoose");
 const isAuthorized = require("./isAuthorized");
 const authRoute = require("./routes/auth");
 const adminRoute = require("./routes/adminRoute");
-// const managerRoute = require("./routes/managerRoute");
-const userRoute = require("./routes/userRoute")
+const userRoute = require("./routes/userRoute");
 const staffRoute = require("./routes/staffRoute");
 const eventRoute = require("./routes/eventRoute");
 const blogRoute = require("./routes/blogRoute");
@@ -47,11 +46,11 @@ app.get("/", (_, res) => {
   return res.render("index");
 });
 app.use("/auth", authRoute);
-app.use("/admin", isAuthorized, adminRoute);
-app.use("/user", isAuthorized, userRoute)
-app.use("/staff", isAuthorized, staffRoute);
-app.use("/event", isAuthorized, eventRoute);
-app.use("/blog", isAuthorized, blogRoute);
+app.use("/admin", isAuthorized(["ADMIN"]), adminRoute);
+app.use("/user", isAuthorized(["ADMIN"]), userRoute);
+app.use("/staff", isAuthorized(["STAFF"]), staffRoute);
+app.use("/event", isAuthorized(["MEMBER"]), eventRoute);
+app.use("/blog", isAuthorized(["ADMIN", "GUEST"]), blogRoute);
 
 app.listen("3000", () => {
   console.log("listening on 3000");

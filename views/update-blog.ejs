@@ -55,7 +55,7 @@
     </nav>
     <div class="container">
       <h2>Update blog <%= blog.title %></h2>
-      <form method="post" action="/blog/update/<%= blog._id %>">
+      <form method="post" action="/admin/blog/update/<%= blog._id %>">
         <div class="row">
           <div class="col-12 mb-2">
             <label class="form-label">Name</label>
@@ -116,7 +116,7 @@
     });
     const remove = (id) => {
       const s = confirm("Are you sure to remove this blog?");
-      if (s === true) window.location.href = `/blog/remove/${id}`;
+      if (s === true) window.location.href = `/admin/blog/remove/${id}`;
     };
   </script>
 </html>
