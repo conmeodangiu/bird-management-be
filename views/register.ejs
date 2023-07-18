@@ -1,134 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Register</title>
-  </head>
-  <body>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-      }
+        <title>Register</title>
+    </head>
+    <body>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+            }
 
-      .container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-      }
+            .container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+            }
 
-      .card {
-        width: 300px;
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        text-align: center;
-      }
+            .card {
+                width: 300px;
+                background-color: #fff;
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                text-align: center;
+            }
 
-      h2 {
-        color: #007bff;
-        margin-bottom: 20px;
-      }
+            h2 {
+                color: #007bff;
+                margin-bottom: 20px;
+            }
 
-      form {
-        display: flex;
-        flex-direction: column;
-      }
+            form {
+                display: flex;
+                flex-direction: column;
+            }
 
-      label {
-        text-align: left;
-        margin-bottom: 5px;
-      }
+            label {
+                text-align: left;
+                margin-bottom: 5px;
+            }
 
-      input {
-        padding: 10px;
-        margin-bottom: 10px;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-      }
+            input {
+                padding: 10px;
+                margin-bottom: 10px;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+            }
 
-      button {
-        padding: 10px;
-        background-color: #007bff;
-        color: #fff;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-      }
+            button {
+                padding: 10px;
+                background-color: #007bff;
+                color: #fff;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
 
-      .switch {
-        margin-top: 15px;
-        font-size: 14px;
-      }
+            .switch {
+                margin-top: 15px;
+                font-size: 14px;
+            }
 
-      .switch a {
-        color: #007bff;
-        text-decoration: none;
-      }
-    </style>
-    <div class="container">
-      <div class="card">
-        <h2>Regiseter Form</h2>
-        <form method="post" action="/auth/register">
-          <label for="username">FullName</label>
-          <input
-            type="text"
-            id="fullName"
-            placeholder="Enter your full name"
-            name="fullName"
-          />
-          <label for="username">Username</label>
-          <input
-            type="text"
-            id="username"
-            placeholder="Enter your username"
-            name="username"
-          />
+            .switch a {
+                color: #007bff;
+                text-decoration: none;
+            }
+        </style>
+        <div class="container">
+            <div class="card">
+                <h2>Regiseter Form</h2>
+                <form method="post" action="/auth/register">
+                    <label for="username">FullName</label>
+                    <input
+                        type="text"
+                        id="fullName"
+                        placeholder="Enter your full name"
+                        name="fullName"
+                        required
+                    />
+                    <label for="username">Username</label>
+                    <input
+                        type="text"
+                        id="username"
+                        placeholder="Enter your username"
+                        name="username"
+                        required
+                    />
 
-          <label for="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            placeholder="Enter your password"
-          />
+                    <label for="password">Password</label>
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Enter your password"
+                        required
+                    />
 
-          <button type="submit">Create new account</button>
-        </form>
-        <div class="switch">
-          Already have account?
-          <a href="./login">Login here</a>
+                    <button type="submit">Create new account</button>
+                </form>
+                <div class="switch">
+                    Already have account?
+                    <a href="./login">Login here</a>
+                </div>
+            </div>
+
+            <!-- <div class="card" style="display: none">
+                <h2>Register Form</h2>
+                <form>
+                    <label for="fullname">Full Name</label>
+                    <input
+                        type="text"
+                        id="fullname"
+                        placeholder="Enter your full name"
+                    />
+
+                    <label for="email">Email</label>
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="Enter your email"
+                    />
+
+                    <label for="new-password">New Password</label>
+                    <input
+                        type="password"
+                        id="new-password"
+                        placeholder="Enter your new password"
+                    />
+
+                    <button type="submit">Register</button>
+                </form>
+                <div class="switch">
+                    Already have an account?
+                    <a href="#" onclick="switchCard()">Login here</a>
+                </div>
+            </div> -->
         </div>
-      </div>
-
-      <div class="card" style="display: none">
-        <h2>Register Form</h2>
-        <form>
-          <label for="fullname">Full Name</label>
-          <input type="text" id="fullname" placeholder="Enter your full name" />
-
-          <label for="email">Email</label>
-          <input type="email" id="email" placeholder="Enter your email" />
-
-          <label for="new-password">New Password</label>
-          <input
-            type="password"
-            id="new-password"
-            placeholder="Enter your new password"
-          />
-
-          <button type="submit">Register</button>
-        </form>
-        <div class="switch">
-          Already have an account?
-          <a href="#" onclick="switchCard()">Login here</a>
-        </div>
-      </div>
-    </div>
-  </body>
+    </body>
 </html>
