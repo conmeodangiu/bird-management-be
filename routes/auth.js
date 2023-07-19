@@ -59,13 +59,18 @@ router.post("/login", (req, res) => {
             res.status(500).json("error comparing passwords");
           } else if (result) {
             req.session.username = found.username;
-            req.session.role = found.role;
             req.session.fullName = found.fullName ? found.fullName : "";
             const token = jwt.sign(found.toJSON(), process.env.secret);
             res.cookie("token", token, {
               httpOnly: true,
             });
-            res.redirect("/");
+            if (found.role === "MEMBER") {
+              res.redirect("/");
+            } else if (found.role === "STAFF") {
+              res.redirect('/staff/');
+            } else if (found.role === 'ADMIN') {
+              res.redirect('/admin/')
+            }
           } else {
             res.status(400).json("login failed");
           }
