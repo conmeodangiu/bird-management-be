@@ -128,11 +128,8 @@ router.get("/blog/remove/:id", async (req, res) => {
 });
 
 router.get("/dashboard", (_, res) => {
-  Events.find({})
-    .populate("playerOne")
-    .populate("playerTwo")
-    .exec()
-    .then((matchesData) => res.render("dashboard", { matchesData }))
+  Users.find({})
+    .then((userDatas) => res.render("dashboard", { userDatas }))
     .catch((err) => console.log(err));
 });
 

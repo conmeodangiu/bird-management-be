@@ -12,7 +12,19 @@ const userSchema = mongoose.Schema(
     },
     role: {
       type: String,
-      default: "MEMBER"
+      default: "MEMBER",
+    },
+    victory: {
+      type: Number,
+      default: 0,
+    },
+    draw: {
+      type: Number,
+      default: 0,
+    },
+    lose: {
+      type: Number,
+      default: 0,
     },
   },
   {
