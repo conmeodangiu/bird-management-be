@@ -58,7 +58,7 @@
         <main class="mb-5">
             <div class="container marketing" style="margin-top: 5rem">
                 <h1 class="h3 mb-3 fw-normal" style="margin-top: 2rem">
-                    Welcome back <%= user.fullName%>!
+                    <h3><%= user.fullName%></h3>
                 </h1>
                 <form
                     class="mb-5"
@@ -68,7 +68,7 @@
                     <h3>Update full name</h3>
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label"
-                            >User Name</label
+                            >New name</label
                         >
                         <input
                             type="text"
@@ -83,32 +83,56 @@
                         Submit
                     </button>
                 </form>
+
                 <form
                     class="mb-5"
                     method="post"
-                    action="/user/update/<%= user._id%>"
+                    action="/user/password/<%= user._id%>"
                 >
                     <h3>Update password</h3>
                     <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label"
-                            >User Name</label
+                        <!-- <label for="exampleInputEmail1" class="form-label"
+                            >Your password</label
                         >
                         <input
-                            type="text"
+                            type="password"
                             class="form-control"
-                            id="fullMame"
-                            name="fullName"
+                            id="password"
+                            name="password"
                             required
-                            value="<%= user.fullName %>"
+                        /> -->
+                        <label for="exampleInputEmail1" class="form-label"
+                            >New password</label
+                        >
+                        <input
+                            type="password"
+                            class="form-control"
+                            id="newPassword"
+                            name="newPassword"
+                            required
                         />
+                        <!-- <label for="exampleInputEmail1" class="form-label"
+                            >Confirm password</label
+                        >
+                        <input
+                            type="confirmPassword"
+                            class="form-control"
+                            id="confirmPassword"
+                            name="confirmPassword"
+                            required
+                        /> -->
                     </div>
                     <button type="submit" class="btn btn-primary">
                         Submit
                     </button>
                 </form>
-                <form method="post" action="/user/update/<%= user._id%>">
-                    <button type="submit" class="btn btn-primary">
-                        Submit
+                <form method="get" action="/user/delete/<%= user._id%>">
+                    <button
+                        type="submit"
+                        class="btn btn-danger"
+                        onclick="return confirm('Are you sure you want to delete your account')"
+                    >
+                        Delete
                     </button>
                 </form>
             </div>

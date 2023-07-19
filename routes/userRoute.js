@@ -30,22 +30,54 @@ router.post("/update/:id", async (req, res) => {
     }
 });
 
-router.post("/update/:id", async (req, res) => {
+router.post("/password/:id", async (req, res) => {
     const { id } = req.params;
-    console.log(req.body);
-    try {
-        let newUser =
-            await Users.findByIdAndUpdate({ _id: id }, { fullName: req.body.fullName }, { new: true });
-        return res.render("user", { user: newUser });
-    } catch (error) {
-        console.log(error);
-    }
+    console.log(id);
+    console.log(req.body.newPassword);
+    // try {
+    //     bcrypt.hash(req.body.password, 10, (err, hashedPassword) => {
+    //         if (err) {
+    //             res.status(500).json("error hashing password");
+    //         } else {
+    //             Users.findOne({ _id: id }, { password: hashedPassword }).exec().then((result) => {
+    //                 if (result) {
+    //                     console.log("nice");
+    //                     bcrypt.hash(req.body.newPassword, 10, (err, hashedNewPassword) => {
+    //                         if (err) {
+    //                             res.status(500).json("error hashing password");
+    //                         } else {
+    //                             Users.findByIdAndUpdate({ _id: id }, { password: hashedNewPassword });
+    //                             return res.redirect("/auth/login");
+    //                         }
+    //                     })
+    //                 } else {
+    //                     try {
+    //                         res.status(400).json("Your password is not correct");
+    //                     } catch (error) {
+    //                         console.log(error);
+    //                     }
+    //                 }
+    //             })
+    //         }
+    //     })
+    // } catch (error) {
+    //     console.log(error);
+    // }
+    bcrypt.hash(req.body.newPassword, 10, (err, hashesPassword) => {
+        if (err) {
+            res.status(500).json("error hashing password");
+        } else {
+            Users.findByIdAndUpdate({ _id: id }, { password: hashesPassword });
+            return res.redirect("/user");
+        }
+    })
+
 });
 
 router.get("/delete/:id", async (req, res) => {
     const { id } = req.params;
     await Users.findByIdAndDelete(id)
-    return res.redirect("/auth");
+    return res.redirect("/auth/login");
 });
 
 module.exports = router;
