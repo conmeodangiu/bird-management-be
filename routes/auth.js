@@ -61,7 +61,7 @@ router.post("/login", (req, res) => {
       if (found) {
         bcrypt.compare(body.password, found.password, (err, result) => {
           if (err) {
-            res.status(500).json("error comparing passwords");
+            return res.status(500).json("error comparing passwords");
           } else if (result) {
             req.session.username = found.username;
             req.session.role = found.role;
@@ -70,13 +70,19 @@ router.post("/login", (req, res) => {
             res.cookie("token", token, {
               httpOnly: true,
             });
-            res.redirect("/");
+            if (found.role === "MEMBER") {
+              return res.redirect("/");
+            } else if (found.role === "STAFF") {
+              return res.redirect('/staff/');
+            } else if (found.role === 'ADMIN') {
+              return res.redirect('/admin/')
+            }
           } else {
-            res.status(400).json("login failed");
+            return res.status(400).json("login failed");
           }
         });
       } else {
-        res.status(400).json("login failed");
+        return res.status(400).json("login failed");
       }
     })
     .catch((err) => console.log(err));

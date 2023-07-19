@@ -50,7 +50,7 @@ app.use("/auth", authRoute);
 app.use("/admin", isAuthorized(["ADMIN"]), adminRoute);
 app.use("/user", isAuthorized(["MEMBER"]), userRoute);
 app.use("/staff", isAuthorized(["STAFF"]), staffRoute);
-app.use("/event", isAuthorized(["MEMBER"]), eventRoute);
+app.use("/event", eventRoute);
 app.use("/blog", isAuthorized(["ADMIN", "GUEST", "STAFF", "MEMBER"]), blogRoute);
 
 app.listen("3000", () => {

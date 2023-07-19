@@ -5,11 +5,12 @@ const router = express.Router();
 const Users = require("../schema/user");
 const Blog = require("../schema/blog");
 const bcrypt = require("bcrypt");
+const Events = require("../schema/event");
 
 router.get("/", (_, res) => {
   Users.find()
     .then((userList) => {
-      const users = userList.filter(userList => !(userList.role === "ADMIN"));
+      const users = userList.filter((userList) => !(userList.role === "ADMIN"));
       return res.render("admin", { users });
     })
     .catch((err) => console.log(err));
@@ -43,12 +44,11 @@ router.post("/create", (req, res) => {
         });
       }
     });
-
 });
 
 router.get("/edit/:id", async (req, res) => {
   const id = req.params.id;
-  const user = await Users.findOne({ _id: id })
+  const user = await Users.findOne({ _id: id });
   return res.render("edit-admin", { user: user });
 });
 
@@ -125,6 +125,15 @@ router.get("/blog/remove/:id", async (req, res) => {
   await Blog.findByIdAndDelete(id);
 
   return res.redirect("/blog");
+});
+
+router.get("/dashboard", (_, res) => {
+  Events.find({})
+    .populate("playerOne")
+    .populate("playerTwo")
+    .exec()
+    .then((matchesData) => res.render("dashboard", { matchesData }))
+    .catch((err) => console.log(err));
 });
 
 module.exports = router;

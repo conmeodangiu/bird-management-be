@@ -1,6 +1,7 @@
 const express = require("express");
 const Users = require("../schema/user");
 const bcrypt = require("bcrypt");
+const Events = require('../schema/event');
 
 const router = express.Router();
 
