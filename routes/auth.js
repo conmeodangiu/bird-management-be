@@ -6,20 +6,23 @@ require("dotenv").config();
 const Events = require("../schema/event");
 
 const router = express.Router();
-router.get("/", (req, res) => {
-  const isLogged = req.session.username;
-  console.log("isLogged:", isLogged);
-  res.render("index", { isLogged });
-});
+
 router.get("/login", (req, res) => {
   return res.render("login");
+});
+
+
+router.get("/", (req, res) => {
+  res.render("index");
 });
 
 router.get("/home", (req, res) => {
   const username = req.session.username;
   const fullName = req.session.fullName;
   const isAdmin = req.session.isAdmin;
-  const isStaff = req.session.isStaff;
+  const isStaff = req.session.isStaff; 
+   const isLogged = req.session.username;
+  // return res.render("index", {isLogged});
   Events.find({})
     .populate("playerOne")
     .populate("playerTwo")
@@ -45,6 +48,7 @@ router.get("/home", (req, res) => {
           eventHistory: history,
           isAdmin,
           isStaff,
+          isLogged,
         });
       });
     });
@@ -59,18 +63,13 @@ router.post("/login", (req, res) => {
             res.status(500).json("error comparing passwords");
           } else if (result) {
             req.session.username = found.username;
+            req.session.role = found.role;
             req.session.fullName = found.fullName ? found.fullName : "";
             const token = jwt.sign(found.toJSON(), process.env.secret);
             res.cookie("token", token, {
               httpOnly: true,
             });
-            if (found.role === "MEMBER") {
-              res.redirect("/");
-            } else if (found.role === "STAFF") {
-              res.redirect('/staff/');
-            } else if (found.role === 'ADMIN') {
-              res.redirect('/admin/')
-            }
+            res.redirect("/");
           } else {
             res.status(400).json("login failed");
           }
