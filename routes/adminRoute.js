@@ -29,7 +29,7 @@ router.post("/create", (req, res) => {
           } else {
             const newUser = new Users({
               username: body.username,
-              password: body.password,
+              password: hashedPassword,
               fullName: body.fullName,
               role: "STAFF",
             });
