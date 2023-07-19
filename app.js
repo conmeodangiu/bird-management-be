@@ -47,7 +47,7 @@ app.get("/", (_, res) => {
 });
 app.use("/auth", authRoute);
 app.use("/admin", isAuthorized(["ADMIN"]), adminRoute);
-app.use("/user", isAuthorized(["ADMIN"]), userRoute);
+app.use("/user", isAuthorized(["MEMBER"]), userRoute);
 app.use("/staff", isAuthorized(["STAFF"]), staffRoute);
 app.use("/event", isAuthorized(["MEMBER"]), eventRoute);
 app.use("/blog", isAuthorized(["ADMIN", "GUEST", "STAFF", "MEMBER"]), blogRoute);

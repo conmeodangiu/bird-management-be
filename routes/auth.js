@@ -11,6 +11,7 @@ router.get("/", (req, res) => {
   console.log("isLogged:", isLogged);
   res.render("index", { isLogged });
 });
+
 router.get("/login", (req, res) => {
   return res.render("login");
 });
@@ -49,6 +50,7 @@ router.get("/home", (req, res) => {
       });
     });
 });
+
 router.post("/login", (req, res) => {
   const { body } = req;
   Users.findOne({ username: body.username })

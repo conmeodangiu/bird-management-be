@@ -1,30 +1,51 @@
 const express = require("express");
 const Users = require("../schema/user");
 const bcrypt = require("bcrypt");
-
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 const router = express.Router();
 
-// router.get("/", async (req, res) => {
-//   const user = await Users.find({ role: MEMBER });
-//   return res.render("user", { user: user });
-// });
+router.get("/", async (req, res) => {
+    const token = req.cookies.token;
+    const secret = process.env.secret;
 
-// router.get("/edit/:id", async (req, res) => {
-//   const id = req.params.id;
-//   const user = await Users.findOne({ _id: id })
-//   return res.render("edit-user", { user: user });
-// });
+    jwt.verify(token, secret, (err, user) => {
+        if (err) {
+            console.log(err);
+            return res.render("404");
+        }
+        return res.render("user", { user: user });
+    });
+});
 
-// router.post("/update/:id", async (req, res) => {
-//   const { id } = req.params;
-//   await Users.findByIdAndUpdate(id, { fullName: req.body.username });
-//   return res.redirect("/user");
-// });
+router.post("/update/:id", async (req, res) => {
+    const { id } = req.params;
+    console.log(req.body);
+    try {
+        let newUser =
+            await Users.findByIdAndUpdate({ _id: id }, { fullName: req.body.fullName }, { new: true });
+        return res.render("user", { user: newUser });
+    } catch (error) {
+        console.log(error);
+    }
+});
 
-// router.get("/delete/:id", async (req, res) => {
-//   const { id } = req.params;
-//   await Users.findByIdAndDelete(id)
-//   return res.redirect("/user");
-// });
+router.post("/update/:id", async (req, res) => {
+    const { id } = req.params;
+    console.log(req.body);
+    try {
+        let newUser =
+            await Users.findByIdAndUpdate({ _id: id }, { fullName: req.body.fullName }, { new: true });
+        return res.render("user", { user: newUser });
+    } catch (error) {
+        console.log(error);
+    }
+});
+
+router.get("/delete/:id", async (req, res) => {
+    const { id } = req.params;
+    await Users.findByIdAndDelete(id)
+    return res.redirect("/auth");
+});
 
 module.exports = router;
