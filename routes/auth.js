@@ -22,7 +22,7 @@ router.get("/home", (req, res) => {
       let history = [];
       for (let i = 0; i < eventHistory.length; i++) {
         const singleEvent = eventHistory[i];
-        if (singleEvent.playerOne.username === username || singleEvent.playerTwo.username === username) { history.push(singleEvent); }
+        if (singleEvent.playerOne && singleEvent.playerOne.username === username || singleEvent.playerTwo && singleEvent.playerTwo.username === username) { history.push(singleEvent); }
       }
       Users.find({ username: { $ne: username } }).then((playerTwo) => {
         res.render("home", { username, fullName, playerTwo, eventHistory: history });
