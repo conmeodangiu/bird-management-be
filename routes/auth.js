@@ -6,7 +6,11 @@ require("dotenv").config();
 const Events = require("../schema/event");
 
 const router = express.Router();
-
+router.get("/", (req, res) => {
+  const isLogged = req.session.username;
+  console.log("isLogged:", isLogged);
+  res.render("index", { isLogged });
+});
 router.get("/login", (req, res) => {
   return res.render("login");
 });
@@ -14,6 +18,8 @@ router.get("/login", (req, res) => {
 router.get("/home", (req, res) => {
   const username = req.session.username;
   const fullName = req.session.fullName;
+  const isAdmin = req.session.isAdmin;
+  const isStaff = req.session.isStaff;
   Events.find({})
     .populate("playerOne")
     .populate("playerTwo")
@@ -22,14 +28,27 @@ router.get("/home", (req, res) => {
       let history = [];
       for (let i = 0; i < eventHistory.length; i++) {
         const singleEvent = eventHistory[i];
-        if (singleEvent.playerOne && singleEvent.playerOne.username === username || singleEvent.playerTwo && singleEvent.playerTwo.username === username) { history.push(singleEvent); }
+        if (
+          (singleEvent.playerOne &&
+            singleEvent.playerOne.username === username) ||
+          (singleEvent.playerTwo && singleEvent.playerTwo.username === username)
+        ) {
+          history.push(singleEvent);
+        }
       }
+
       Users.find({ username: { $ne: username } }).then((playerTwo) => {
-        res.render("home", { username, fullName, playerTwo, eventHistory: history });
+        res.render("home", {
+          username,
+          fullName,
+          playerTwo,
+          eventHistory: history,
+          isAdmin,
+          isStaff,
+        });
       });
     });
 });
-
 router.post("/login", (req, res) => {
   const { body } = req;
   Users.findOne({ username: body.username })
@@ -40,12 +59,13 @@ router.post("/login", (req, res) => {
             res.status(500).json("error comparing passwords");
           } else if (result) {
             req.session.username = found.username;
+            req.session.role = found.role;
             req.session.fullName = found.fullName ? found.fullName : "";
             const token = jwt.sign(found.toJSON(), process.env.secret);
             res.cookie("token", token, {
               httpOnly: true,
             });
-            res.redirect("/auth/home");
+            res.redirect("/");
           } else {
             res.status(400).json("login failed");
           }
@@ -76,7 +96,7 @@ router.post("/register", (req, res) => {
             const newUser = new Users({
               username: body.username,
               password: hashedPassword,
-              fullName: body.fullName
+              fullName: body.fullName,
             });
             newUser
               .save()

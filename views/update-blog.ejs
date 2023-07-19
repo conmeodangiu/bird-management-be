@@ -1,135 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-            rel="stylesheet"
-        />
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-        <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css"
-        />
-        <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
-        <title>Update Blog</title>
-    </head>
-    <body>
-        <header class="p-3 bg-dark text-white fixed-top">
-            <div class="container">
-                <div
-                    class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start"
-                >
-                    <ul
-                        class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"
-                    >
-                        <li>
-                            <a
-                                href="/auth/home"
-                                class="nav-link px-2 text-white"
-                                >Home</a
-                            >
-                        </li>
-                        <li>
-                            <a href="/blog" class="nav-link px-2 text-white"
-                                >Blog</a
-                            >
-                        </li>
-                        <li>
-                            <a href="/staff" class="nav-link px-2 text-white"
-                                >Staff Manage</a
-                            >
-                        </li>
-                        <li>
-                            <a href="/admin" class="nav-link px-2 text-white"
-                                >Admin Manage</a
-                            >
-                        </li>
-                    </ul>
 
-                    <div class="text-end">
-                        <button
-                            type="button"
-                            class="btn btn-outline-light me-2"
-                        >
-                            <a href="/auth/login">Login</a>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css" />
+    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+    <title>Update Blog</title>
+</head>
+
+<body>
+    <header class="p-3 bg-dark text-white fixed-top">
+        <div class="container">
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                    <li>
+                        <a href="/auth/home" class="nav-link px-2 text-white">Event</a>
+                    </li>
+                    <li>
+                        <a href="/blog" class="nav-link px-2 text-white">Blog</a>
+                    </li>
+                    <li>
+                        <a href="/staff" class="nav-link px-2 text-white">Staff Manage</a>
+                    </li>
+                    <li>
+                        <a href="/admin" class="nav-link px-2 text-white">Admin Manage</a>
+                    </li>
+                </ul>
+
+                <div class="text-end">
+                    <button type="button" class="btn btn-outline-light me-2">
+                        <a href="/auth/login">Login</a>
+                    </button>
+                    <button type="button" class="btn btn-warning">
+                        <a href="/auth/register">Sign-up</a>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="container mb-5" style="margin-top: 5rem">
+        <h2>Update blog <%= blog.title %>
+        </h2>
+        <form method="post" action="/admin/blog/update/<%= blog._id %>">
+            <div class="row">
+                <div class="col-12 mb-2">
+                    <label class="form-label">Name</label>
+                    <input class="form-control" name="title" required value="<%= blog.title %>" />
+                </div>
+                <div class="col-12 mb-2">
+                    <label class="form-label">Image URL</label>
+                    <input class="form-control" name="image" required value="<%= blog.image %>" />
+                </div>
+                <div class="form-group col-12 mb-2">
+                    <label class="form-label">Description</label>
+                    <textarea hidden class="form-control" id="exampleFormControlTextarea1" rows="3" required
+                        name="body"></textarea>
+                </div>
+                <div class="d-flex">
+                    <div>
+                        <button class="btn btn-primary" type="submit">
+                            Update
                         </button>
-                        <button type="button" class="btn btn-warning">
-                            <a href="/auth/register">Sign-up</a>
+                    </div>
+                    <div>
+                        <button class="btn btn-danger ms-2" onclick="remove('<%= blog._id %>')" type="button">
+                            Remove
                         </button>
                     </div>
                 </div>
             </div>
-        </header>
-        <div class="container mb-5" style="margin-top: 5rem">
-            <h2>Update blog <%= blog.title %></h2>
-            <form method="post" action="/admin/blog/update/<%= blog._id %>">
-                <div class="row">
-                    <div class="col-12 mb-2">
-                        <label class="form-label">Name</label>
-                        <input
-                            class="form-control"
-                            name="title"
-                            required
-                            value="<%= blog.title %>"
-                        />
-                    </div>
-                    <div class="col-12 mb-2">
-                        <label class="form-label">Image URL</label>
-                        <input
-                            class="form-control"
-                            name="image"
-                            required
-                            value="<%= blog.image %>"
-                        />
-                    </div>
-                    <div class="form-group col-12 mb-2">
-                        <label class="form-label">Description</label>
-                        <textarea
-                            hidden
-                            class="form-control"
-                            id="exampleFormControlTextarea1"
-                            rows="3"
-                            required
-                            name="body"
-                        ></textarea>
-                    </div>
-                    <div class="d-flex">
-                        <div>
-                            <button class="btn btn-primary" type="submit">
-                                Update
-                            </button>
-                        </div>
-                        <div>
-                            <button
-                                class="btn btn-danger ms-2"
-                                onclick="remove('<%= blog._id %>')"
-                                type="button"
-                            >
-                                Remove
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
+        </form>
+    </div>
 
-        <%- include("footer") %>
-    </body>
-    <script>
-        var simplemde = new SimpleMDE({
-            element: document.querySelector("textarea"),
-            spellChecker: false,
-        });
-        simplemde.value(`<%= blog.body %>`);
+    <%- include("footer") %>
+</body>
+<script>
+    var simplemde = new SimpleMDE({
+        element: document.querySelector("textarea"),
+        spellChecker: false,
+    });
+    simplemde.value(`<%= blog.body %>`);
+    document.querySelector("textarea").value = simplemde.value();
+    simplemde.codemirror.on("change", function () {
         document.querySelector("textarea").value = simplemde.value();
-        simplemde.codemirror.on("change", function () {
-            document.querySelector("textarea").value = simplemde.value();
-        });
-        const remove = (id) => {
-            const s = confirm("Are you sure to remove this blog?");
-            if (s === true) window.location.href = `/blog/remove/${id}`;
-        };
-    </script>
+    });
+    const remove = (id) => {
+        const s = confirm("Are you sure to remove this blog?");
+        if (s === true) window.location.href = `/blog/remove/${id}`;
+    };
+</script>
+
 </html>

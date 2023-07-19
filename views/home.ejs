@@ -1,142 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Home</title>
-        <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-            rel="stylesheet"
-        />
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
-        <style>
-            a {
-                text-decoration: none;
-            }
-        </style>
-    </head>
-    <body>
-        <header class="p-3 bg-dark text-white fixed-top">
-            <div class="container">
-                <div
-                    class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start"
-                >
-                    <ul
-                        class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"
-                    >
-                        <li>
-                            <a
-                                href="/auth/home"
-                                class="nav-link px-2 text-white"
-                                >Home</a
-                            >
-                        </li>
-                        <li>
-                            <a href="/blog" class="nav-link px-2 text-white"
-                                >Blog</a
-                            >
-                        </li>
-                        <li>
-                            <a href="/staff" class="nav-link px-2 text-white"
-                                >Staff Manage</a
-                            >
-                        </li>
-                        <li>
-                            <a href="/admin" class="nav-link px-2 text-white"
-                                >Admin Manage</a
-                            >
-                        </li>
-                    </ul>
 
-                    <div class="text-end">
-                        <button
-                            type="button"
-                            class="btn btn-outline-light me-2"
-                        >
-                            <a href="/auth/login">Login</a>
-                        </button>
-                        <button type="button" class="btn btn-warning">
-                            <a href="/auth/register">Sign-up</a>
-                        </button>
-                    </div>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <style>
+        a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="p-3 bg-dark text-white fixed-top">
+        <div class="container">
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                    <li>
+                        <a href="/auth/home" class="nav-link px-2 text-white">Event</a>
+                    </li>
+                    <li>
+                        <a href="/blog" class="nav-link px-2 text-white">Blog</a>
+                    </li>
+                    <!-- <% if (isStaff) { %>
+                        <li>
+                            <a href="/staff" class="nav-link px-2 text-white">Staff Manage</a>
+                        </li>
+                        <% } %> -->
+                    <% if (isAdmin) { %>
+                        <li style="display: block;">
+                            <a href="/admin" class="nav-link px-2 text-white">Admin Manage</a>
+                        </li>
+                        <% } %>
+
+                </ul>
+
+                <div class="text-end">
+                    <button type="button" class="btn btn-outline-light me-2">
+                        <a href="/auth/login">Login</a>
+                    </button>
+                    <button type="button" class="btn btn-warning">
+                        <a href="/auth/register">Sign-up</a>
+                    </button>
                 </div>
             </div>
-        </header>
+        </div>
+    </header>
 
-        <main class="mb-5">
-            <div class="container marketing" style="margin-top: 5rem">
-                <h1 class="h3 mb-3 fw-normal" style="margin-top: 2rem">
-                    Welcome back <%= fullName %>!
-                </h1>
-                <p>Create your event</p>
-                <form
-                    class="row g-3"
-                    method="post"
-                    action="/event/create-new-event"
-                >
-                    <div class="col-md-6">
-                        <label for="inputEmail4" class="form-label"
-                            >Your Name</label
-                        >
-                        <input
-                            type="text"
-                            class="form-control"
-                            id="username"
-                            value="<%= fullName %>"
-                            readonly
-                            name="playerOne"
-                        />
-                    </div>
-                    <div class="col-md-4">
-                        <label for="inputState" class="form-label"
-                            >Choose player 2</label
-                        >
-                        <select
-                            id="inputState"
-                            class="form-select"
-                            name="playerTwo"
-                        >
-                            <% for(let i = 0; i < playerTwo.length; i++) { %>
+    <main class="mb-5">
+        <div class="container marketing" style="margin-top: 5rem">
+            <h1 class="h3 mb-3 fw-normal" style="margin-top: 2rem">
+                Welcome back <%= fullName %>!
+            </h1>
+            <p>Create your event</p>
+            <form class="row g-3" method="post" action="/event/create-new-event">
+                <div class="col-md-6">
+                    <label for="inputEmail4" class="form-label">Your Name</label>
+                    <input type="text" class="form-control" id="username" value="<%= fullName %>" readonly
+                        name="playerOne" />
+                </div>
+                <div class="col-md-4">
+                    <label for="inputState" class="form-label">Choose player 2</label>
+                    <select id="inputState" class="form-select" name="playerTwo">
+                        <% for(let i=0; i < playerTwo.length; i++) { %>
                             <option value="<%=playerTwo[i]._id%>">
                                 <%=playerTwo[i].fullName%>
                             </option>
                             <% } %>
-                        </select>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="inputCity" class="form-label"
-                            >Choose your date</label
-                        >
-                        <input
-                            type="datetime-local"
-                            class="form-control"
-                            id="date"
-                            name="date"
-                            required
-                        />
-                    </div>
-                    <div class="col-md-4">
-                        <label for="inputPassword4" class="form-label"
-                            >Match Name</label
-                        >
-                        <input
-                            type="text"
-                            class="form-control"
-                            id="titlematch"
-                            name="titleMatch"
-                            required
-                        />
-                    </div>
-                    <div class="col-12">
-                        <button type="submit" class="btn btn-primary">
-                            Create
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </main>
-        <%if (typeof eventHistory != "undefined" && eventHistory.length > 0) {
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="inputCity" class="form-label">Choose your date</label>
+                    <input type="datetime-local" class="form-control" id="date" name="date" required
+                        min="2023-07-20T00:00" />
+                </div>
+                <div class="col-md-4">
+                    <label for="inputPassword4" class="form-label">Match Name</label>
+                    <input type="text" class="form-control" id="titlematch" name="titleMatch" required />
+                </div>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary">
+                        Create
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
+    <%if (typeof eventHistory !="undefined" && eventHistory.length> 0) {
         %>
         <main class="container mt-5 mb-5">
             <div class="row">
@@ -153,37 +107,41 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <% for (let i = 0; i < eventHistory.length; i++) {
-                            %> <% const playerOne = eventHistory[i].playerOne &&
-                            eventHistory[i].playerOne.fullName; const playerTwo
-                            = eventHistory[i].playerTwo &&
-                            eventHistory[i].playerTwo.fullName;
-                            console.log(playerOne) %>
-                            <tr>
-                                <th scope="row"><%=i + 1%></th>
-                                <td><%=playerOne%></td>
-                                <td><%=playerTwo%></td>
-                                <td>
-                                    <%=eventHistory[i].date.toString().replace(/\sGMT\+\d+\s\(.+\)$/,
-                                    "")%>
-                                </td>
-                                <td><%=eventHistory[i].titleMatch%></td>
-                            </tr>
-                            <% } %>
+                            <% for (let i=0; i < eventHistory.length; i++) { %>
+                                <% const playerOne=eventHistory[i].playerOne && eventHistory[i].playerOne.fullName;
+                                    const playerTwo=eventHistory[i].playerTwo && eventHistory[i].playerTwo.fullName;
+                                    console.log(playerOne) %>
+                                    <tr>
+                                        <th scope="row">
+                                            <%=i + 1%>
+                                        </th>
+                                        <td>
+                                            <%=playerOne%>
+                                        </td>
+                                        <td>
+                                            <%=playerTwo%>
+                                        </td>
+                                        <td>
+                                            <%=eventHistory[i].date.toString().replace( /\sGMT\+\d+\s\(.+\)$/, "" )%>
+                                        </td>
+                                        <td>
+                                            <%=eventHistory[i].titleMatch%>
+                                        </td>
+                                    </tr>
+                                    <% } %>
                         </tbody>
                     </table>
                 </div>
                 <div class="col-6">
                     <h1>Match Dashboard</h1>
-                    <canvas
-                        id="myChart"
-                        style="width: 100%; max-width: 700px"
-                    ></canvas>
+                    <canvas id="myChart" style="width: 100%; max-width: 700px"></canvas>
                 </div>
             </div>
         </main>
 
         <script>
+
+
             var xyValues = [
                 { x: 1, y: 1 },
                 { x: 2, y: 1 },
@@ -219,5 +177,6 @@
             });
         </script>
         <% } %> <%- include("footer"); %>
-    </body>
+</body>
+
 </html>
