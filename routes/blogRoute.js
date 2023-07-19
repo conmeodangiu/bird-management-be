@@ -22,11 +22,13 @@ router.get("/:id", async (req, res) => {
 
 router.get("/", async (req, res) => {
   const blogs = await Blog.find({}).sort({ createdAt: "desc" });
+  const isLogged = req.session.username;
 
   return res.render("blog", {
     blogs,
     isAdmin: req.user.role === "ADMIN",
     isMember: req.user.role === "MEMBER",
+    isLogged,
   });
 });
 
