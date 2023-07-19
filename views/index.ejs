@@ -33,9 +33,25 @@
                 </ul>
 
 
-                <button type="button" class="btn btn-outline-light me-2">
+                <% if (typeof isLogged != "undefined") {%>
+                    <%console.log(isLogged)%>
+                    <%if (isLogged) { %>
+                        <button type="button" class="btn btn-outline-light me-2" id="logout-btn">
+                            <a href="/auth/logout" style="color: white;">Logout</a>
+                        </button>
+                    <% } else { %>
+                        <button type="button" class="btn btn-outline-light me-2" id="login-btn" 
+                            <a href="/auth/login" style="color: white;">Login</a>
+                        </button>
+                <% } } %>
+
+
+
+
+
+                <!-- <button type="button" class="btn btn-outline-light me-2">
                     <a href="/auth/login" style="color: white;">Login</a>
-                </button>
+                </button> -->
                 <button type="button" class="btn btn-warning">
                     <a href="/auth/register">Sign-up</a>
                 </button>

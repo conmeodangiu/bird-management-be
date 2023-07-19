@@ -42,8 +42,9 @@ app.use(
 app.use("/test", (_, res) => {
   res.status(200).send("working");
 });
-app.get("/", (_, res) => {
-  return res.render("index");
+app.get("/", (req, res) => {
+  const isLogged = req.session.username;
+  return res.render("index", {isLogged});
 });
 app.use("/auth", authRoute);
 app.use("/admin", isAuthorized(["ADMIN"]), adminRoute);
