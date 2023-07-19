@@ -70,6 +70,8 @@
             <th>Player Two Full Name</th>
             <th>Date</th>
             <th>Title Match</th>
+            <th>Match Status</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -81,6 +83,70 @@
             <td><%= match.playerTwo.fullName %></td>
             <td><%= match.date.toString().replace(/\sGMT\+\d+\s\(.+\)$/, "")%></td>
             <td><%= match.titleMatch %></td>
+            <td><%=match.status ? match.status : ""%></td>
+            <%if (match.status !== "undefined") { %>
+              <% if (match.status !== "STARTED" && !["VICTORY", "LOSE", "DRAW"].includes(match.status)) { %> 
+                <td>
+                  <!-- Button trigger modal -->
+                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#startModal<%=i%>">
+                    Start
+                  </button>
+    
+                  <!-- Modal -->
+                  <div class="modal fade" id="startModal<%=i%>" tabindex="-1" aria-labelledby="startModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="startModalLabel">Start</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          Do you want to start this match?
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          <button type="button" class="btn btn-primary" onclick="startMatch('<%=match._id%>')">Start!</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              <% } else if (match.status === "STARTED") { %>
+                <td>
+                  <!-- Button trigger modal -->
+                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#resultModal<%=i%>">
+                    Result
+                  </button>
+    
+                  <!-- Modal -->
+                  <div class="modal fade" id="resultModal<%=i%>" tabindex="-1" aria-labelledby="resultModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="resultModalLabel">Result</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          Result of this match?
+                        </div>
+                        <div class="modal-footer">
+                          <form method="post" action="/event/set-result">
+                            <input type="hidden" name="id" value="<%=match._id%>">
+                            <input type="hidden" name="playerOneId" value="<%=match.playerOne._id%>">
+                            <input type="hidden" name="playerTwoId" value="<%=match.playerTwo._id%>">
+                            <button type="submit" class="btn btn-danger" name="result" value="LOSE">Lose</button>
+                            <button type="submit" class="btn btn-secondary" name="result" value="DRAW">Draw</button>
+                            <button type="submit" class="btn btn-primary" name="result" value="VICTORY">Victory</button>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </td> 
+                <% } else { %>
+                  <td></td>
+                <% } %>
+            <% } %>
           </tr>
           <% } %>
         </tbody>
@@ -88,5 +154,10 @@
     </main>
 
     <%- include("footer");%>
+    <script>
+      const startMatch = async (id) => {
+        location.href = `/event/start/${id}`
+      }
+    </script>
   </body>
 </html>
