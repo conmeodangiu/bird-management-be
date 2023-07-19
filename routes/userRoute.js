@@ -32,46 +32,33 @@ router.post("/update/:id", async (req, res) => {
 
 router.post("/password/:id", async (req, res) => {
     const { id } = req.params;
-    console.log(id);
-    console.log(req.body.newPassword);
-    // try {
-    //     bcrypt.hash(req.body.password, 10, (err, hashedPassword) => {
-    //         if (err) {
-    //             res.status(500).json("error hashing password");
-    //         } else {
-    //             Users.findOne({ _id: id }, { password: hashedPassword }).exec().then((result) => {
-    //                 if (result) {
-    //                     console.log("nice");
-    //                     bcrypt.hash(req.body.newPassword, 10, (err, hashedNewPassword) => {
-    //                         if (err) {
-    //                             res.status(500).json("error hashing password");
-    //                         } else {
-    //                             Users.findByIdAndUpdate({ _id: id }, { password: hashedNewPassword });
-    //                             return res.redirect("/auth/login");
-    //                         }
-    //                     })
-    //                 } else {
-    //                     try {
-    //                         res.status(400).json("Your password is not correct");
-    //                     } catch (error) {
-    //                         console.log(error);
-    //                     }
-    //                 }
-    //             })
-    //         }
-    //     })
-    // } catch (error) {
-    //     console.log(error);
-    // }
-    bcrypt.hash(req.body.newPassword, 10, (err, hashesPassword) => {
-        if (err) {
-            res.status(500).json("error hashing password");
-        } else {
-            Users.findByIdAndUpdate({ _id: id }, { password: hashesPassword });
-            return res.redirect("/user");
-        }
-    })
-
+    try {
+        Users.findOne({ _id: id }).then((found) => {
+            bcrypt.compare(req.body.password, found.password, (err, result) => {
+                if (err) {
+                    console.log(err);
+                } else if (result) {
+                    if (req.body.newPassword.match(req.body.confirmPassword)) {
+                        bcrypt.hash(req.body.newPassword, 10, async (err, hashedPassword) => {
+                            if (err) {
+                                console.log(err);
+                            } else {
+                                await Users.findByIdAndUpdate({ _id: id }, { password: hashedPassword });
+                                return res.redirect("/user");
+                            }
+                        })
+                    } else {
+                        res.status(500).json("Your new password is not match");
+                    }
+                } else {
+                    res.status(500).json("Your password is not match");
+                }
+            })
+        })
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: "An error occurred" });
+    }
 });
 
 router.get("/delete/:id", async (req, res) => {
