@@ -39,7 +39,6 @@
                             <a href="/admin" class="nav-link px-2 text-white">Admin Manage</a>
                         </li>
                         <% } %>
-
                 </ul>
 
                 <div class="text-end">
@@ -144,50 +143,10 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="col-6">
-                    <h1>Match Dashboard</h1>
-                    <canvas id="myChart" style="width: 100%; max-width: 700px"></canvas>
-                </div>
             </div>
         </main>
 
-        <script>
-
-
-            var xyValues = [
-                { x: 1, y: 1 },
-                { x: 2, y: 1 },
-                { x: 3, y: 1 },
-                { x: 4, y: 1 },
-                { x: 5, y: 1 },
-                { x: 6, y: 1 },
-                { x: 7, y: 1 },
-                { x: 8, y: 1 },
-                { x: 9, y: 1 },
-                { x: 10, y: 1 },
-                { x: 11, y: 1 },
-                { x: 12, y: 1 },
-            ];
-            new Chart("myChart", {
-                type: "scatter",
-                data: {
-                    datasets: [
-                        {
-                            pointRadius: 5,
-                            pointBackgroundColor: "rgb(0,0,255)",
-                            data: xyValues,
-                        },
-                    ],
-                },
-                options: {
-                    legend: { display: false },
-                    scales: {
-                        xAxes: [{ ticks: { min: 1, max: 12 } }],
-                        yAxes: [{ ticks: { min: 0, max: 25 } }],
-                    },
-                },
-            });
-        </script>
+     
         <% } %> <%- include("footer"); %>
 </body>
 

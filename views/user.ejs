@@ -27,6 +27,11 @@
                         class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"
                     >
                         <li>
+                            <a href="/" class="nav-link px-2 text-white"
+                                >Home</a
+                            >
+                        </li>
+                        <li>
                             <a
                                 href="/auth/home"
                                 class="nav-link px-2 text-white"
@@ -38,17 +43,37 @@
                                 >Blog</a
                             >
                         </li>
+                        <li>
+                            <a href="/user" class="nav-link px-2 text-white"
+                                >Profile</a
+                            >
+                        </li>
+                        <li>
+                            <a href="/staff" class="nav-link px-2 text-white"
+                                >Staff Manage</a
+                            >
+                        </li>
+                        <li>
+                            <a href="/admin" class="nav-link px-2 text-white"
+                                >Admin Manage</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="/admin/dashboard"
+                                class="nav-link px-2 text-white"
+                                >Dashboard</a
+                            >
+                        </li>
                     </ul>
 
                     <div class="text-end">
                         <button
                             type="button"
                             class="btn btn-outline-light me-2"
+                            id="logout-btn"
                         >
-                            <a href="/auth/login">Login</a>
-                        </button>
-                        <button type="button" class="btn btn-warning">
-                            <a href="/auth/register">Sign-up</a>
+                            <a href="/auth/logout">Logout</a>
                         </button>
                     </div>
                 </div>
@@ -58,7 +83,7 @@
         <main class="mb-5">
             <div class="container marketing" style="margin-top: 5rem">
                 <h1 class="h3 mb-3 fw-normal" style="margin-top: 2rem">
-                    <h3><%= user.fullName%></h3>
+                    <h3><%= user.fullName%> <%= user.role%></h3>
                 </h1>
                 <form
                     class="mb-5"

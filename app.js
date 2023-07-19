@@ -44,11 +44,11 @@ app.use("/test", (_, res) => {
 });
 app.get("/", (req, res) => {
   const isLogged = req.session.username;
-  return res.render("index", {isLogged});
+  return res.render("index", { isLogged });
 });
 app.use("/auth", authRoute);
 app.use("/admin", isAuthorized(["ADMIN"]), adminRoute);
-app.use("/user", isAuthorized(["MEMBER"]), userRoute);
+app.use("/user", isAuthorized(["MEMBER", "STAFF", "ADMIN"]), userRoute);
 app.use("/staff", isAuthorized(["STAFF"]), staffRoute);
 app.use("/event", eventRoute);
 app.use("/blog", isAuthorized(["ADMIN", "GUEST", "STAFF", "MEMBER"]), blogRoute);

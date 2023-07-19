@@ -32,10 +32,15 @@
                         class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"
                     >
                         <li>
+                            <a href="/" class="nav-link px-2 text-white"
+                                >Home</a
+                            >
+                        </li>
+                        <li>
                             <a
                                 href="/auth/home"
                                 class="nav-link px-2 text-white"
-                                >Home</a
+                                >Event</a
                             >
                         </li>
                         <li>
@@ -44,12 +49,21 @@
                             >
                         </li>
                         <li>
+                            <a href="/user" class="nav-link px-2 text-white"
+                                >Profile</a
+                            >
+                        </li>
+                        <li>
                             <a href="/admin" class="nav-link px-2 text-white"
                                 >Admin Manage</a
                             >
                         </li>
                         <li>
-                            <a href="/admin/dashboard" class="nav-link px-2 text-white">Dashboard</a>
+                            <a
+                                href="/admin/dashboard"
+                                class="nav-link px-2 text-white"
+                                >Dashboard</a
+                            >
                         </li>
                     </ul>
 
@@ -57,11 +71,9 @@
                         <button
                             type="button"
                             class="btn btn-outline-light me-2"
+                            id="logout-btn"
                         >
-                            <a href="/auth/login">Login</a>
-                        </button>
-                        <button type="button" class="btn btn-warning">
-                            <a href="/auth/register">Sign-up</a>
+                            <a href="/auth/logout">Logout</a>
                         </button>
                     </div>
                 </div>

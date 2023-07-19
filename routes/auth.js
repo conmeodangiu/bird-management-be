@@ -123,6 +123,8 @@ router.post("/register", (req, res) => {
     });
 })
 router.get("/logout", (req, res) => {
+  res.clearCookie('token');
+  res.clearCookie('connect.sid');
   res.redirect("/auth/login")
 });
 module.exports = router;
