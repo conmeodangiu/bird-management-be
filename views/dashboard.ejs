@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <title>Dashboard</title>
+</head>
+<body>
+  <div class="container">
+    <h1>Match Statistics</h1>
+
+    <label for="playerSelect">Select Player:</label>
+    <select id="playerSelect" onchange="updateCharts(`<%=JSON.stringify(matchesData)%>`)">
+      <option value="">All Players</option>
+      <% matchesData.forEach(match => { %>
+        <option value="<%= match.playerOne.username %>"><%= match.playerOne.fullName %></option>
+        <option value="<%= match.playerTwo.username %>"><%= match.playerTwo.fullName %></option>
+      <% }); %>
+    </select>
+
+    <div>
+      <canvas id="barChart" width="400" height="200"></canvas>
+    </div>
+
+    <div>
+      <canvas id="pieChart" width="400" height="200"></canvas>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    // Assume you have the matchesData array passed as `matchesData` in your template
+
+    let barChart;
+    let pieChart;
+
+    function updateCharts(matchesData) {
+      if (barChart) {
+        barChart.destroy();
+      }
+      if (pieChart) {
+        pieChart.destroy();
+      }
+  
+      const matchData = eval(matchesData);
+      const playerSelect = document.getElementById('playerSelect');
+      const selectedPlayer = playerSelect.value;
+
+      // Filter data based on the selected player
+      const filteredData = selectedPlayer
+        ? matchData.filter(match => match.playerOne.username === selectedPlayer || match.playerTwo.username === selectedPlayer)
+        : matchData;
+
+      // Get player's match count
+      const playerMatchCount = filteredData && filteredData.reduce((count, match) => {
+        if (match.playerOne.username === selectedPlayer || match.playerTwo.username === selectedPlayer) {
+          return count + 1;
+        }
+        return count;
+      }, 0);
+
+      // Get wins, draws, and losses count for the selected player
+      const playerWins = Math.floor(Math.random() * 10) + 1;
+      const playerDraws = Math.floor(Math.random() * 5) + 1;
+      const playerLosses = Math.floor(Math.random() * 5) + 1;
+
+      // Bar Chart
+      const barChartCtx = document.getElementById('barChart').getContext('2d');
+      barChart = new Chart(barChartCtx, {
+        type: 'bar',
+        data: {
+          labels: ['Wins', 'Draws', 'Losses'],
+          datasets: [{
+            label: 'Matches',
+            data: [playerWins, playerDraws, playerLosses],
+            backgroundColor: ['green', 'orange', 'red'],
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              beginAtZero: true,
+              stepSize: 1,
+            }
+          }
+        }
+      });
+
+      // Pie Chart
+      const pieChartCtx = document.getElementById('pieChart').getContext('2d');
+      pieChart = new Chart(pieChartCtx, {
+        type: 'pie',
+        data: {
+          labels: ['Wins', 'Draws', 'Losses'],
+          datasets: [{
+            label: 'Matches',
+            data: [playerWins, playerDraws, playerLosses],
+            backgroundColor: ['green', 'orange', 'red'],
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+        }
+      });
+      
+    }
+
+    // Initial chart setup
+    updateCharts();
+  </script>
+</body>
+</html>
