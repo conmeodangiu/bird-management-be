@@ -44,11 +44,14 @@
                                 >Blog</a
                             >
                         </li>
-                        <li>
-                            <a href="/admin" class="nav-link px-2 text-white"
-                                >Admin Manage</a
-                            >
-                        </li>
+                        <% if (isAdmin) { %>
+                            <li>
+                                <a href="/admin" class="nav-link px-2 text-white"
+                                    >Admin Manage</a
+                                >
+                            </li>
+                            <% } %>
+                     
                     </ul>
 
                     <div class="text-end">
@@ -59,7 +62,7 @@
                             <a href="/auth/login">Login</a>
                         </button>
                         <button type="button" class="btn btn-warning">
-                            <a href="/auth/register">Sign-up</a>
+                            <a href="/auth/register" style="color: white;">Sign-up</a>
                         </button>
                     </div>
                 </div>
