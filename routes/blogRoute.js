@@ -8,6 +8,7 @@ const converter = new showdown.Converter({ extensions: [showdownHtmlEscape] });
 
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
+  const isLogged = req.session.username;
 
   const blog = await Blog.findOne({ _id: id });
 
@@ -17,6 +18,9 @@ router.get("/:id", async (req, res) => {
       title: blog.title,
       body: converter.makeHtml(blog.body),
     },
+    isAdmin: req.user.role === "ADMIN",
+    isMember: req.user.role === "MEMBER",
+    isLogged,
   });
 });
 
