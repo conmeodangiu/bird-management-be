@@ -14,6 +14,9 @@ const eventSchema = mongoose.Schema({
   titleMatch: {
     type: String,
   },
+  status: {
+    type: String,
+  }
 });
 
 const event = mongoose.model("Event", eventSchema);
