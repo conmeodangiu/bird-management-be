@@ -116,15 +116,17 @@ router.post("/blog/update/:id", async (req, res) => {
   return res.redirect("/blog");
 });
 
-router.get("/blog/remove/:id", async (req, res) => {
+router.get("/blog/edit/remove/:id", async (req, res) => {
   const { id } = req.params;
-  const { user } = req;
 
-  if (user.role !== "ADMIN") return res.render("404");
+  try {
+    await Blog.findByIdAndDelete({ _id: id });
+    return res.redirect("/blog");
+  } catch (error) {
+    console.log(error);
+  }
 
-  await Blog.findByIdAndDelete(id);
 
-  return res.redirect("/blog");
 });
 
 router.get("/dashboard", (_, res) => {

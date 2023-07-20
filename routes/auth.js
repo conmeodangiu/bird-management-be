@@ -8,19 +8,26 @@ const Events = require("../schema/event");
 const router = express.Router();
 
 router.get("/login", (req, res) => {
+
   return res.render("login");
 });
 
-
 router.get("/", (req, res) => {
-  res.render("index");
+  const isAdmin = req.session.isAdmin;
+  const isStaff = req.session.isStaff;
+  res.render("index", {
+    isAdmin: isAdmin,
+    isStaff: isStaff,
+  });
 });
 
 router.get("/home", (req, res) => {
+  const token = req.cookies.token;
+  const secret = process.env.secret;
   const username = req.session.username;
   const fullName = req.session.fullName;
-  const isAdmin = req.session.isAdmin;
-  const isStaff = req.session.isStaff;
+  // const isAdmin = req.session.isAdmin;
+  // const isStaff = req.session.isStaff;
   const isLogged = req.session.username;
   // return res.render("index", {isLogged});
   Events.find({})
@@ -40,17 +47,24 @@ router.get("/home", (req, res) => {
         }
       }
 
-      Users.find({ username: { $ne: username } }).then((playerTwo) => {
-        res.render("home", {
-          username,
-          fullName,
-          playerTwo,
-          eventHistory: history,
-          isAdmin,
-          isStaff,
-          isLogged,
+      jwt.verify(token, secret, (err, user) => {
+        if (err) {
+          console.log(err);
+          return res.render("404");
+        }
+        Users.find({ username: { $ne: username } }).then((playerTwo) => {
+          res.render("home", {
+            username,
+            fullName,
+            user: user,
+            playerTwo,
+            eventHistory: history,
+            isLogged,
+          });
         });
       });
+
+
     });
 });
 
@@ -123,6 +137,8 @@ router.post("/register", (req, res) => {
     });
 })
 router.get("/logout", (req, res) => {
+  res.clearCookie('token');
+  res.clearCookie('connect.sid');
   res.redirect("/auth/login")
 });
 module.exports = router;

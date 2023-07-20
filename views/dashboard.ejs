@@ -1,132 +1,204 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-    />
-    <title>Dashboard</title>
-  </head>
-  <body>
-    <div class="container">
-      <h1>Match Statistics</h1>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+        />
+        <title>Dashboard</title>
+    </head>
+    <body>
+        <header class="p-3 bg-dark text-white fixed-top">
+            <div class="container">
+                <div
+                    class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start"
+                >
+                    <ul
+                        class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"
+                    >
+                        <li>
+                            <a href="/" class="nav-link px-2 text-white"
+                                >Home</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="/auth/home"
+                                class="nav-link px-2 text-white"
+                                >Event</a
+                            >
+                        </li>
+                        <li>
+                            <a href="/blog" class="nav-link px-2 text-white"
+                                >Blog</a
+                            >
+                        </li>
+                        <li>
+                            <a href="/user" class="nav-link px-2 text-white"
+                                >Profile</a
+                            >
+                        </li>
+                        <li>
+                            <a href="/admin" class="nav-link px-2 text-white"
+                                >Admin Manage</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="/admin/dashboard"
+                                class="nav-link px-2 text-white"
+                                >Dashboard</a
+                            >
+                        </li>
+                    </ul>
 
-      <label for="playerSelect">Select Player:</label>
-      <select
-        id="playerSelect"
-        onchange="updateCharts(`<%=JSON.stringify(userDatas)%>`)"
-      >
-        <option value="">All Players</option>
-        <% userDatas.forEach(user => { %>
-        <option value="<%= user.username %>"><%= user.fullName %></option>
-        <% }); %>
-      </select>
+                    <div class="text-end">
+                        <button
+                            type="button"
+                            class="btn btn-outline-light me-2"
+                            id="logout-btn"
+                        >
+                            <a href="/auth/logout">Logout</a>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="container" style="margin-top: 5rem">
+            <h1 style="text-align: center">Match Statistics</h1>
 
-      <div>
-        <canvas id="barChart" width="400" height="200"></canvas>
-      </div>
+            <label for="playerSelect">Select Player:</label>
+            <select
+                id="playerSelect"
+                onchange="updateCharts(`<%=JSON.stringify(userDatas)%>`)"
+            >
+                <option value="">All Players</option>
+                <% userDatas.forEach(user => { %>
+                <option value="<%= user.username %>">
+                    <%= user.fullName %>
+                </option>
+                <% }); %>
+            </select>
 
-      <div>
-        <canvas id="pieChart" width="400" height="200"></canvas>
-      </div>
-    </div>
+            <div>
+                <canvas id="barChart" width="400" height="200"></canvas>
+            </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-      // Assume you have the matchesData array passed as `matchesData` in your template
+            <div>
+                <canvas id="pieChart" width="400" height="200"></canvas>
+            </div>
+        </div>
 
-      let barChart;
-      let pieChart;
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script>
+            // Assume you have the matchesData array passed as `matchesData` in your template
 
-      function updateCharts(userDatas) {
-        if (barChart) {
-          barChart.destroy();
-        }
-        if (pieChart) {
-          pieChart.destroy();
-        }
+            let barChart;
+            let pieChart;
 
-        const datas = eval(userDatas);
-        const playerSelect = document.getElementById("playerSelect");
-        const selectedPlayer = playerSelect.value;
+            function updateCharts(userDatas) {
+                if (barChart) {
+                    barChart.destroy();
+                }
+                if (pieChart) {
+                    pieChart.destroy();
+                }
 
-        // Filter data based on the selected player
-        //const filteredData = selectedPlayer
-        //  ? matchData.filter(match => match.playerOne.username === selectedPlayer || match.playerTwo.username === selectedPlayer)
-        // : matchData;
+                const datas = eval(userDatas);
+                const playerSelect = document.getElementById("playerSelect");
+                const selectedPlayer = playerSelect.value;
 
-        const filteredData = selectedPlayer
-          ? datas.filter((user) => user.username === selectedPlayer)
-          : datas;
+                // Filter data based on the selected player
+                //const filteredData = selectedPlayer
+                //  ? matchData.filter(match => match.playerOne.username === selectedPlayer || match.playerTwo.username === selectedPlayer)
+                // : matchData;
 
-        // console.log(filteredData.filter(match => match.playerOne.username === selectedPlayer))
-        // console.log(filteredData.map(match => console.log(match.playe)))
+                const filteredData = selectedPlayer
+                    ? datas.filter((user) => user.username === selectedPlayer)
+                    : datas;
 
-        // Get wins, draws, and losses count for the selected player
-        //const playerWins = filteredData[0].victory ? filteredData[0].victory : 0;
-        if (filteredData) {
-          const playerWins = filteredData[0].victory
-            ? filteredData[0].victory
-            : 0;
-          const playerDraws = filteredData[0].draw ? filteredData[0].draw : 0;
-          const playerLosses = filteredData[0].lose ? filteredData[0].lose : 0;
+                // console.log(filteredData.filter(match => match.playerOne.username === selectedPlayer))
+                // console.log(filteredData.map(match => console.log(match.playe)))
 
-          // Bar Chart
-          const barChartCtx = document
-            .getElementById("barChart")
-            .getContext("2d");
-          barChart = new Chart(barChartCtx, {
-            type: "bar",
-            data: {
-              labels: ["Wins", "Draws", "Losses"],
-              datasets: [
-                {
-                  label: "Matches",
-                  data: [playerWins, playerDraws, playerLosses],
-                  backgroundColor: ["green", "orange", "red"],
-                },
-              ],
-            },
-            options: {
-              responsive: true,
-              maintainAspectRatio: false,
-              scales: {
-                y: {
-                  beginAtZero: true,
-                  stepSize: 1,
-                },
-              },
-            },
-          });
+                // Get wins, draws, and losses count for the selected player
+                //const playerWins = filteredData[0].victory ? filteredData[0].victory : 0;
+                if (filteredData) {
+                    const playerWins = filteredData[0].victory
+                        ? filteredData[0].victory
+                        : 0;
+                    const playerDraws = filteredData[0].draw
+                        ? filteredData[0].draw
+                        : 0;
+                    const playerLosses = filteredData[0].lose
+                        ? filteredData[0].lose
+                        : 0;
 
-          // Pie Chart
-          const pieChartCtx = document
-            .getElementById("pieChart")
-            .getContext("2d");
-          pieChart = new Chart(pieChartCtx, {
-            type: "pie",
-            data: {
-              labels: ["Wins", "Draws", "Losses"],
-              datasets: [
-                {
-                  label: "Matches",
-                  data: [playerWins, playerDraws, playerLosses],
-                  backgroundColor: ["green", "orange", "red"],
-                },
-              ],
-            },
-            options: {
-              responsive: true,
-              maintainAspectRatio: false,
-            },
-          });
-        }
-      }
+                    // Bar Chart
+                    const barChartCtx = document
+                        .getElementById("barChart")
+                        .getContext("2d");
+                    barChart = new Chart(barChartCtx, {
+                        type: "bar",
+                        data: {
+                            labels: ["Wins", "Draws", "Losses"],
+                            datasets: [
+                                {
+                                    label: "Matches",
+                                    data: [
+                                        playerWins,
+                                        playerDraws,
+                                        playerLosses,
+                                    ],
+                                    backgroundColor: ["green", "orange", "red"],
+                                },
+                            ],
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    stepSize: 1,
+                                },
+                            },
+                        },
+                    });
 
-      // Initial chart setup
-      updateCharts();
-    </script>
-  </body>
+                    // Pie Chart
+                    const pieChartCtx = document
+                        .getElementById("pieChart")
+                        .getContext("2d");
+                    pieChart = new Chart(pieChartCtx, {
+                        type: "pie",
+                        data: {
+                            labels: ["Wins", "Draws", "Losses"],
+                            datasets: [
+                                {
+                                    label: "Matches",
+                                    data: [
+                                        playerWins,
+                                        playerDraws,
+                                        playerLosses,
+                                    ],
+                                    backgroundColor: ["green", "orange", "red"],
+                                },
+                            ],
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                        },
+                    });
+                }
+            }
+
+            // Initial chart setup
+            updateCharts();
+        </script>
+
+        <%- include('footer'); %>
+    </body>
 </html>

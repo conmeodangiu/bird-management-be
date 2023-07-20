@@ -8,16 +8,24 @@ const converter = new showdown.Converter({ extensions: [showdownHtmlEscape] });
 
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
+  const isLogged = req.session.username;
 
-  const blog = await Blog.findOne({ _id: id });
+  try {
+    const blog = await Blog.findOne({ _id: id });
 
-  return res.render("view-blog", {
-    blog: {
-      image: blog.image,
-      title: blog.title,
-      body: converter.makeHtml(blog.body),
-    },
-  });
+    return res.render("view-blog", {
+      blog: {
+        image: blog.image,
+        title: blog.title,
+        body: converter.makeHtml(blog.body),
+      },
+      isAdmin: req.user.role === "ADMIN",
+      isMember: req.user.role === "MEMBER",
+      isLogged,
+    });
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 router.get("/", async (req, res) => {

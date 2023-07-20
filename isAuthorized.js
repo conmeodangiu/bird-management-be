@@ -13,6 +13,7 @@ const isAuthorized = (roles) => (req, res, next) => {
     return next();
   }
 
+
   if (!token) return res.status(404).render("404");
   const secret = process.env.secret;
 

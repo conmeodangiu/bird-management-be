@@ -8,7 +8,7 @@
             rel="stylesheet"
         />
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-        <title>Register</title>
+        <title>Blog</title>
         <style>
             .view img {
                 width: 100%;
@@ -25,6 +25,13 @@
                         class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"
                     >
                         <li>
+                            <a href="/" class="nav-link px-2 text-white"
+                                >Home</a
+                            >
+                        </li>
+                        <% if (typeof isLogged !="undefined" ) {%>
+                        <%console.log(isLogged)%> <%if (isLogged) { %>
+                        <li>
                             <a
                                 href="/auth/home"
                                 class="nav-link px-2 text-white"
@@ -37,33 +44,71 @@
                             >
                         </li>
                         <li>
-                            <a href="/staff" class="nav-link px-2 text-white"
-                                >Staff Manage</a
+                            <a href="/user" class="nav-link px-2 text-white"
+                                >Profile</a
                             >
                         </li>
+                        <% } %> <% } else { %>
+                        <li>
+                            <a href="/blog" class="nav-link px-2 text-white"
+                                >Blog</a
+                            >
+                        </li>
+                        <% } %> <%if(isAdmin){%>
                         <li>
                             <a href="/admin" class="nav-link px-2 text-white"
                                 >Admin Manage</a
                             >
                         </li>
+                        <li>
+                            <a
+                                href="/admin/dashboard"
+                                class="nav-link px-2 text-white"
+                                >Dashboard</a
+                            >
+                        </li>
+                        <%}%>
                     </ul>
 
-                    <div class="text-end">
-                        <button
-                            type="button"
-                            class="btn btn-outline-light me-2"
+                    <% if (typeof isLogged !="undefined" ) {%>
+                    <%console.log(isLogged)%> <%if (isLogged) { %>
+                    <button
+                        type="button"
+                        class="btn btn-outline-light me-2"
+                        id="logout-btn"
+                    >
+                        <a href="/auth/logout">Logout</a>
+                    </button>
+                    <% } %> <% } else { %>
+                    <button
+                        type="button"
+                        class="btn btn-outline-light me-2"
+                        id="login-btn"
+                    >
+                        <a href="/auth/login" style="color: white">Login</a>
+                    </button>
+                    <button type="button" class="btn btn-warning">
+                        <a href="/auth/register" style="color: white"
+                            >Sign-up</a
                         >
-                            <a href="/auth/login">Login</a>
-                        </button>
-                        <button type="button" class="btn btn-warning">
-                            <a href="/auth/register">Sign-up</a>
-                        </button>
-                    </div>
+                    </button>
+                    <% } %>
                 </div>
             </div>
         </header>
-        <div class="container" style="margin-top: 5rem">
-            <h2><%- blog.title %></h2>
+
+        <div class="container mb-5" style="margin-top: 5rem">
+            <h1 class="mb-5" style="text-align: center;"><%- blog.title %></h2>
+            <div class="text-center mb-4">
+                <img
+                    class="object-fit-cover border rounded align-items-center"
+                    height="500"
+                    width="auto"
+                    src="<%= blog.image %>"
+                    alt="..."
+                    onerror="this.src='https://boodabike.com/wp-content/uploads/2023/03/no-image.jpg'"
+                />
+            </div>
             <div class="view"><%- blog.body %></div>
         </div>
 
