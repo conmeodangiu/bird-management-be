@@ -13,10 +13,6 @@ const clubSchema = mongoose.Schema(
   },
   {
     timestamps: true,
-    writeConcern: {
-      j: true,
-      wtimeout: 1000,
-    },
   }
 );
 

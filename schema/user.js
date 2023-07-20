@@ -14,18 +14,6 @@ const userSchema = mongoose.Schema(
       type: String,
       default: "MEMBER",
     },
-    victory: {
-      type: Number,
-      default: 0,
-    },
-    draw: {
-      type: Number,
-      default: 0,
-    },
-    lose: {
-      type: Number,
-      default: 0,
-    },
   },
   {
     timestamps: true,
