@@ -26,11 +26,7 @@ router.get("/", (req, res) => {
 //   const secret = process.env.secret;
 //   const username = req.session.username;
 //   const fullName = req.session.fullName;
-//   // const isAdmin = req.session.isAdmin;
-//   // const isStaff = req.session.isStaff;
-//   const isLogged = req.session.username;
-//   // return res.render("index", {isLogged});
-//   Events.find({})
+///   Events.find({})
 //     .populate("playerOne")
 //     .populate("playerTwo")
 //     .exec()
@@ -66,7 +62,11 @@ router.get("/", (req, res) => {
 
 
 //     });
-// });
+// });/   // const isAdmin = req.session.isAdmin;
+//   // const isStaff = req.session.isStaff;
+//   const isLogged = req.session.username;
+//   // return res.render("index", {isLogged});
+
 
 router.post("/login", (req, res) => {
   const { body } = req;
