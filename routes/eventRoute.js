@@ -58,12 +58,14 @@ router.post("/create-event", async (req, res) => {
   }
 });
 
+// get event to edit
 router.get("/edit", async (req, res) => {
   const id = req.params.id;
   const event = await Events.findOne({ _id: id });
   return res.render("update-event", { event: event });
 });
 
+//update event
 router.post("/update/:id", async (req, res) => {
   const id = req.params.id;
   const name = req.body.name;
@@ -86,6 +88,8 @@ router.post("/update/:id", async (req, res) => {
   }
 });
 
+
+//judge event
 router.post("/judge/:id", (req, res) => {
   const token = req.cookies.token;
   const secret = process.env.secret;
