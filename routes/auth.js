@@ -21,52 +21,52 @@ router.get("/", (req, res) => {
   });
 });
 
-router.get("/home", (req, res) => {
-  const token = req.cookies.token;
-  const secret = process.env.secret;
-  const username = req.session.username;
-  const fullName = req.session.fullName;
-  // const isAdmin = req.session.isAdmin;
-  // const isStaff = req.session.isStaff;
-  const isLogged = req.session.username;
-  // return res.render("index", {isLogged});
-  Events.find({})
-    .populate("playerOne")
-    .populate("playerTwo")
-    .exec()
-    .then((eventHistory) => {
-      let history = [];
-      for (let i = 0; i < eventHistory.length; i++) {
-        const singleEvent = eventHistory[i];
-        if (
-          (singleEvent.playerOne &&
-            singleEvent.playerOne.username === username) ||
-          (singleEvent.playerTwo && singleEvent.playerTwo.username === username)
-        ) {
-          history.push(singleEvent);
-        }
-      }
+// router.get("/home", (req, res) => {
+//   const token = req.cookies.token;
+//   const secret = process.env.secret;
+//   const username = req.session.username;
+//   const fullName = req.session.fullName;
+//   // const isAdmin = req.session.isAdmin;
+//   // const isStaff = req.session.isStaff;
+//   const isLogged = req.session.username;
+//   // return res.render("index", {isLogged});
+//   Events.find({})
+//     .populate("playerOne")
+//     .populate("playerTwo")
+//     .exec()
+//     .then((eventHistory) => {
+//       let history = [];
+//       for (let i = 0; i < eventHistory.length; i++) {
+//         const singleEvent = eventHistory[i];
+//         if (
+//           (singleEvent.playerOne &&
+//             singleEvent.playerOne.username === username) ||
+//           (singleEvent.playerTwo && singleEvent.playerTwo.username === username)
+//         ) {
+//           history.push(singleEvent);
+//         }
+//       }
 
-      jwt.verify(token, secret, (err, user) => {
-        if (err) {
-          console.log(err);
-          return res.render("404");
-        }
-        Users.find({ username: { $ne: username } }).then((playerTwo) => {
-          res.render("home", {
-            username,
-            fullName,
-            user: user,
-            playerTwo,
-            eventHistory: history,
-            isLogged,
-          });
-        });
-      });
+//       jwt.verify(token, secret, (err, user) => {
+//         if (err) {
+//           console.log(err);
+//           return res.render("404");
+//         }
+//         Users.find({ username: { $ne: username } }).then((playerTwo) => {
+//           res.render("home", {
+//             username,
+//             fullName,
+//             user: user,
+//             playerTwo,
+//             eventHistory: history,
+//             isLogged,
+//           });
+//         });
+//       });
 
 
-    });
-});
+//     });
+// });
 
 router.post("/login", (req, res) => {
   const { body } = req;

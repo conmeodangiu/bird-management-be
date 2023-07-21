@@ -38,18 +38,14 @@
                     >
                         <% if (typeof isLogged !="undefined" ) {%>
                         <%console.log(isLogged)%> <%if (isLogged) { %>
-                        <li>
-                            <a
-                                href="/auth/home"
-                                class="nav-link px-2 text-white"
-                                >Event</a
-                            >
-                        </li>
-                        <li>
-                            <a href="/blog" class="nav-link px-2 text-white"
-                                >Blog</a
-                            >
-                        </li>
+                            <li>
+                                <a
+                                    href="/event/create-event"
+                                    class="nav-link px-2 text-white"
+                                    >Match Manage</a
+                                >
+                            </li>
+                      
                         <% } %> <% } else { %>
                         <li>
                             <a href="/blog" class="nav-link px-2 text-white"
