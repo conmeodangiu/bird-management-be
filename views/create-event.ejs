@@ -122,13 +122,13 @@
 				<input type="text" id="description" name="description" pattern=[A-Z\sa-z]{3,20} required>
 			</div>
 			<div class="elem-group inlined">
-				<label for="adult">Participants</label>
-				<input type="text" id="adult" name="member" placeholder="John" required>
-			</div>
-			<div class="elem-group inlined">
-				<label for="child">Pet</label>
-				<input type="number" id="child" name="field placeholder=" 2" required>
-			</div>
+				<label for="participant-name">Participant Name</label>
+				<input type="text" id="participant-name" name="participantName[]" required>
+			  </div>
+			  <div class="elem-group inlined">
+				<label for="participant-field">Total Children</label>
+				<input type="number" id="participant-field" name="participantField[]" required>
+			  </div>
 			<div class="elem-group inlined">
 				<label for="checkin-date">Start Date</label>
 				<input type="date" id="startDate" name="startDate" required>
