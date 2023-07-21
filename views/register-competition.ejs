@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Register Match</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</head>
+<style>
+	body {
+  /* width: 500px; */
+  margin: 0 auto;
+  padding: 50px;
+}
+
+div.elem-group {
+  margin: 20px 0;
+}
+
+div.elem-group.inlined {
+  width: 49%;
+  display: inline-block;
+  float: left;
+  margin-left: 1%;
+}
+
+label {
+  display: block;
+  font-family: 'Nanum Gothic';
+  padding-bottom: 10px;
+  font-size: 1.25em;
+}
+
+input, select, textarea {
+  border-radius: 2px;
+  border: 2px solid #777;
+  box-sizing: border-box;
+  font-size: 1.25em;
+  font-family: 'Nanum Gothic';
+  width: 100%;
+  padding: 10px;
+}
+
+div.elem-group.inlined input {
+  width: 95%;
+  display: inline-block;
+}
+
+textarea {
+  height: 250px;
+}
+
+hr {
+  border: 1px dotted #ccc;
+}
+
+button {
+  height: 50px;
+  background: orange;
+  border: none;
+  color: white;
+  font-size: 1.25em;
+  font-family: 'Nanum Gothic';
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  border: 2px solid black;
+}
+</style>
+<body>
+	<div class="container">
+		<h1>Register now</h1>
+		<form action="" method="post">
+			<div class="elem-group">
+			  <label for="name">Bird Type</label>
+			  <input type="text" id="type" name="type" placeholder="Parrot" pattern=[A-Z\sa-z]{3,20} required>
+			</div>
+			<div class="elem-group">
+				<label for="name">Bird Name</label>
+				<input type="text" id="name" name="visitor_name" placeholder="Fuong" pattern=[A-Z\sa-z]{3,20} required>
+			  </div>
+			<hr>
+			<div class="elem-group inlined">
+			  <label for="adult">Bird Age</label>
+			  <input type="number" id="adult" name="total_adults" placeholder="2" min="1" required>
+			</div>
+			<div class="elem-group inlined">
+			  <label for="child">Color</label>
+			  <input type="text" id="color" name="color" placeholder="Red, Green, vv" required>
+			</div>
+
+			<div class="elem-group">
+			  <label for="room-selection">Select Bird's Quantity</label>
+			  <select id="room-selection" name="quantity" required>
+				  <option value="1" selected>1</option>
+			  </select>
+			</div>
+			<hr>
+	
+			<button type="submit">Book The Match</button>
+		  </form>
+		
+	</div>
+	<table class="table">
+		<thead>
+			<tr>
+				<th scope="col">Bird type</th>
+				<th scope="col">Bird Name</th>
+				<th scope="col">Bird Age</th>
+				<th scope="col">Color</th>
+				<th scope="col">Quantity</th>
+				<th scope="col">Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+			  <td>Mark</td>
+			  <td>Otto</td>
+			  <td>@mdo</td>
+			  <td>Mark</td>
+			  <td>1</td>
+			  <td>
+				<button class="btn btn-success">
+					<a href="./feedback" style="color: white;text-decoration: none;">View feedback</a>
+				</button>
+			  </td>
+			</tr>
+		
+		  </tbody>
+		
+	</table>
+</body>
+</html>

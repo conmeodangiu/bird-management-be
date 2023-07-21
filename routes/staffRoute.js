@@ -27,5 +27,7 @@ router.get("/delete/:id", async (req, res) => {
   await Users.findByIdAndDelete(id)
   return res.redirect("/staff");
 });
-
+router.get("/grading", async (req, res) => {
+  return res.render("grading");
+});
 module.exports = router;
