@@ -6,6 +6,29 @@ const Users = require("../schema/user");
 router.get("/create-event", (req, res) => {
   return res.render("create-event");
 });
+router.post("/create-event", async (req, res) => {
+  const { titleMatch, description, startDate, endDate, status } = req.body;
+
+  try {
+    // Create a new event object using the data submitted by the form
+    const newEvent = new Events({
+      titleMatch,
+      description,
+      startDate,
+      endDate,
+      status,
+    });
+    console.log(newEvent);
+    await newEvent.save();
+    console.log(newEvent);
+
+    return res.redirect("/event/create-event");
+  } catch (err) {
+    console.error(err);
+
+    return res.redirect("/error");
+  }
+});
 
 // create new event
 // router.post("/create-new-event", isAuthorized(["MEMBER"]), (req, res) => {

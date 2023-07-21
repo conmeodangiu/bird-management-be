@@ -121,14 +121,14 @@
 				<label for="name">Match Description</label>
 				<input type="text" id="description" name="description" pattern=[A-Z\sa-z]{3,20} required>
 			</div>
-			<div class="elem-group inlined">
+			<!-- <div class="elem-group inlined">
 				<label for="participant-name">Participant Name</label>
 				<input type="text" id="participant-name" name="participantName[]" required>
 			  </div>
 			  <div class="elem-group inlined">
 				<label for="participant-field">Total Children</label>
 				<input type="number" id="participant-field" name="participantField[]" required>
-			  </div>
+			  </div> -->
 			<div class="elem-group inlined">
 				<label for="checkin-date">Start Date</label>
 				<input type="date" id="startDate" name="startDate" required>
@@ -141,16 +141,15 @@
 				<label for="room-selection">Status</label>
 				<select id="room-selection" name="status" required>
 					<option value="">Choose a Competition Status</option>
-					<option value="connecting">Created</option>
-					<option value="adjoining">Started</option>
-					<option value="adjacent">Waiting</option>
-					<option value="adjacent">Done</option>
-
+					<option value="created">Created</option>
+					<option value="started">Started</option>
+					<option value="waiting">Waiting</option>
+					<option value="done">Done</option>
 				</select>
 			</div>
 			<button type="submit">Save</button>
 		</form>
-		
+
 	</div>
 	<h1 style="text-align: center;">Match history</h1>
 	<table class="table">
