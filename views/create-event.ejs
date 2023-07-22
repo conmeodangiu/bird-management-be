@@ -137,7 +137,7 @@
 				<label for="checkout-date">End Date</label>
 				<input type="date" id="endDate" name="endDate" required>
 			</div>
-			<div class="elem-group">
+			<!-- <div class="elem-group">
 				<label for="room-selection">Status</label>
 				<select id="room-selection" name="status" required>
 					<option value="">Choose a Competition Status</option>
@@ -146,31 +146,47 @@
 					<option value="waiting">Waiting</option>
 					<option value="done">Done</option>
 				</select>
-			</div>
+			</div> -->
 			<button type="submit">Save</button>
 		</form>
 
 	</div>
-	<h1 style="text-align: center;">Match history</h1>
-	<table class="table">
-		<thead>
-			<tr>
-				<th scope="col">#</th>
-				<th scope="col">First</th>
-				<th scope="col">Last</th>
-				<th scope="col">Handle</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<th scope="row">1</th>
-				<td>Mark</td>
-				<td>Otto</td>
-				<td>@mdo</td>
-			</tr>
-
-		</tbody>
-	</table>
+	<% if (events != "undefined") { %>
+		<h1 style="text-align: center;">Competition history</h1>
+		
+			<table class="table">
+				<thead>
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">Title</th>
+						<th scope="col">Description</th>
+						<th scope="col">Start Date</th>
+						<th scope="col">End Date</th>
+						<th scope="col">Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% for (let i = 0; i < events.length; i++) { %>
+					<tr>
+						<td><%=i + 1%></td>
+						<td><%=events[i].titleMatch%></td>
+						<td><%=events[i].description%></td>
+						<td><%=events[i].startDate.toString().replace(/\sGMT\+\d+\s\(.+\)$/, "")%></td>
+						<td><%=events[i].endDate.toString().replace(/\sGMT\+\d+\s\(.+\)$/, "")%></td>
+						<%if (events[i].status === "CREATED") { %>
+						<td><button class="btn btn-primary" onclick="start('<%=events[i]._id%>')">Start</button></td>
+						<% } else if (events[i].status === "STARTED") { %>
+							<td><button class="btn btn-danger" onclick="stop('<%=events[i]._id%>')">Stop</button></td>
+						<% } else if (events[i].status === "WAITING") { %>
+							<td><button class="btn btn-danger" onclick="stop('<%=events[i]._id%>')">End Grading</button></td>
+						<% } %>
+					</tr>
+					<% } %>
+		
+				</tbody>
+			</table>
+	<% } %>
+	
 	<script>var currentDateTime = new Date();
 		var year = currentDateTime.getFullYear();
 		var month = (currentDateTime.getMonth() + 1);
@@ -191,6 +207,14 @@
 
 		checkinElem.onchange = function () {
 			checkoutElem.setAttribute("min", this.value);
+		}
+
+		const start = (id) => {
+			location.href = `/event/start-event/${id}`
+		}
+
+		const stop = (id) => {
+			location.href = `/event/stop-event/${id}`
 		}
 
 	</script>

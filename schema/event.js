@@ -14,8 +14,12 @@ const gradingDetailSchema = new mongoose.Schema({
 
 // Define a subdocument schema for the fields required from members participating in the competition
 const participantFieldsSchema = new mongoose.Schema({
-  field1: { type: String, required: true },
-  field2: { type: Number, required: true },
+  birdType: { type: String },
+  birdName: { type: String },
+  birdAge: { type: String },
+  birdColor: { type: String },
+  birdQuantity: { type: String },
+
   // Add more fields as needed
 });
 
@@ -39,11 +43,11 @@ const eventSchema = mongoose.Schema({
         ref: "User",
       },
       fields: participantFieldsSchema, // Reference the subdocument schema for participant fields
-      gradingDetails: [gradingDetailSchema]
+      gradingDetails: [gradingDetailSchema],
     },
   ],
   status: {
-    type: String, // CREATED || STARTED || ENDED || WAITING || DONE
+    type: String, // CREATED || STARTED || WAITING || DONE
   },
 });
 

@@ -23,12 +23,15 @@ router.get("/competition", (_, res) => {
     res.render("view-competition", { comp });
   });
 });
-router.get("/register-competition", (req, res) => {
-  return res.render("register-competition");
+router.get("/register-competition/:id", (req, res) => {
+  const { user } = req;
+  const id = req.params.id;
+  console.log(user);
+  return res.render("register-competition", { eventId: id, userId: user._id });
 });
 router.get("/feedback", (req, res) => {
-    return res.render("feedback");
-  });
+  return res.render("feedback");
+});
 router.post("/update/:id", async (req, res) => {
   const { id } = req.params;
   console.log(req.body);
@@ -86,6 +89,62 @@ router.get("/delete/:id", async (req, res) => {
   const { id } = req.params;
   await Users.findByIdAndDelete(id);
   return res.redirect("/auth/login");
+});
+
+router.post("/register-competition/:id", (req, res) => {
+  const { body } = req;
+  const eventId = req.params.id;
+
+  Events.findById(eventId).then((err, foundEvent) => {
+    if (err) {
+      console.log(err);
+    } else {
+      if (!foundEvent) {
+        console.log("Event not found.");
+        return;
+      }
+    }
+
+    const updatedParticipant = {
+      member: body.userId,
+      fields: {
+        birdType: body.birdType,
+        birdName: body.birdName,
+        birdAge: body.birdAge,
+        birdColor: body.birdColor,
+        birdQuantity: body.birdQuantity,
+      },
+      gradingDetails: [],
+    };
+
+    console.log('found', foundEvent)
+    
+
+    // Find the index of the participant you want to update in the participants array
+    const participantIndex = foundEvent.participants.findIndex(
+      (participant) =>
+        participant.member.toString() === updatedParticipant.member
+    );
+
+    if (participantIndex !== -1) {
+      // Update the participant at the found index
+      foundEvent.participants[participantIndex] = updatedParticipant;
+
+      // Save the updated event
+      foundEvent.save((err, updatedEvent) => {
+        if (err) {
+          console.error(err);
+          // Handle the error
+        } else {
+          console.log("Participant data updated successfully:");
+          console.log(updatedEvent);
+          // The updatedEvent contains the updated data
+        }
+      });
+    } else {
+      console.log("Participant not found in the event.");
+    }
+  });
 });
 
 module.exports = router;

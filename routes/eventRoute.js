@@ -3,11 +3,13 @@ const router = express.Router();
 const Events = require("../schema/event");
 const isAuthorized = require("../isAuthorized");
 const Users = require("../schema/user");
-router.get("/create-event", (req, res) => {
-  return res.render("create-event");
+router.get("/create-event", (_, res) => {
+  Events.find({}).then((events) => {
+    return res.render("create-event", {events});
+  }).catch(err => console.log(err));
 });
 router.post("/create-event", async (req, res) => {
-  const { titleMatch, description, startDate, endDate, status } = req.body;
+  const { titleMatch, description, startDate, endDate } = req.body;
 
   try {
     // Create a new event object using the data submitted by the form
@@ -16,7 +18,7 @@ router.post("/create-event", async (req, res) => {
       description,
       startDate,
       endDate,
-      status,
+      status: "CREATED",
     });
     console.log(newEvent);
     await newEvent.save();
@@ -29,6 +31,18 @@ router.post("/create-event", async (req, res) => {
     return res.redirect("/error");
   }
 });
+
+router.get('/start-event/:id', (req, res) => {
+  Events.findByIdAndUpdate({_id: req.params.id}, {status: "STARTED"}, {new: true}).then((events) => {
+    return res.render("create-event", {events});
+  }).catch(err => console.log(err)); 
+})
+
+router.get('/stop-event/:id', (req, res) => {
+  Events.findByIdAndUpdate({_id: req.params.id}, {status: "WAITING"}, {new: true}).then((events) => {
+    return res.render("create-event", {events});
+  }).catch(err => console.log(err)); 
+})
 
 // create new event
 // router.post("/create-new-event", isAuthorized(["MEMBER"]), (req, res) => {

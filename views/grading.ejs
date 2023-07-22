@@ -73,14 +73,16 @@ button:hover {
 	<p style="text-align: center;" >Grading based on birds's appearance(%)</small>
 	<hr>
 
-	<form action="" method="post">
+	<form action="/grading/grading-participant/<%=eventId%>" method="post">
 		<div class="elem-group">
 			<label for="room-selection">Select Participants name </label>
 			<select id="room-selection" name="room_preference" required>
 				<option value="">Choose participants to evaluate</option>
-				<option value="connecting">A</option>
-				<option value="adjoining">B</option>
-				<option value="adjacent">C</option>
+				<%if (participants.length > 0) { %>
+					<% for (let i = 0; i < participants.length; i++) { %>
+						<option value="participants">participants</option>
+					<% } %>
+				<% } %>
 			</select>
 		  </div>
 		<div class="elem-group inlined">

@@ -87,9 +87,9 @@ router.post("/login", (req, res) => {
             if (found.role === "MEMBER") {
               return res.redirect("/");
             } else if (found.role === "STAFF") {
-              return res.redirect('/staff/');
+              return res.redirect('/staff');
             } else if (found.role === 'ADMIN') {
-              return res.redirect('/admin/')
+              return res.redirect('/admin')
             }
           } else {
             return res.status(400).json("login failed");

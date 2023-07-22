@@ -73,28 +73,29 @@ button:hover {
 <body>
 	<div class="container">
 		<h1>Register now</h1>
-		<form action="" method="post">
+		<form action="/user/register-competition/<%=eventId%>" method="post">
+			<input type="hidden" name="userId" value="<%=userId ? userId : ''%>">
 			<div class="elem-group">
 			  <label for="name">Bird Type</label>
-			  <input type="text" id="type" name="type" placeholder="Parrot" pattern=[A-Z\sa-z]{3,20} required>
+			  <input type="text" id="type" name="birdType" placeholder="Parrot" pattern=[A-Z\sa-z]{3,20} required>
 			</div>
 			<div class="elem-group">
 				<label for="name">Bird Name</label>
-				<input type="text" id="name" name="visitor_name" placeholder="Fuong" pattern=[A-Z\sa-z]{3,20} required>
+				<input type="text" id="name" name="birdName" placeholder="Bird Name" pattern=[A-Z\sa-z]{3,20} required>
 			  </div>
 			<hr>
 			<div class="elem-group inlined">
 			  <label for="adult">Bird Age</label>
-			  <input type="number" id="adult" name="total_adults" placeholder="2" min="1" required>
+			  <input type="number" id="adult" name="birdAge" placeholder="2" min="1" required>
 			</div>
 			<div class="elem-group inlined">
 			  <label for="child">Color</label>
-			  <input type="text" id="color" name="color" placeholder="Red, Green, vv" required>
+			  <input type="text" id="color" name="birdColor" placeholder="Red, Green, vv" required>
 			</div>
 
 			<div class="elem-group">
 			  <label for="room-selection">Select Bird's Quantity</label>
-			  <select id="room-selection" name="quantity" required>
+			  <select id="room-selection" name="birdQuantity" required>
 				  <option value="1" selected>1</option>
 			  </select>
 			</div>
@@ -104,7 +105,7 @@ button:hover {
 		  </form>
 		
 	</div>
-	<table class="table">
+	<!-- <table class="table">
 		<thead>
 			<tr>
 				<th scope="col">Bird type</th>
@@ -131,6 +132,6 @@ button:hover {
 		
 		  </tbody>
 		
-	</table>
+	</table> -->
 </body>
 </html>
