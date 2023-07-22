@@ -73,15 +73,18 @@ button:hover {
 	<p style="text-align: center;" >Grading based on birds's appearance(%)</small>
 	<hr>
 
-	<form action="/grading/grading-participant/<%=eventId%>" method="post">
+	<% if(typeof eventId !== "undefined") { %>
+	<form action="/staff/grading/grading-participant/<%=eventId%>" method="post">
 		<div class="elem-group">
 			<label for="room-selection">Select Participants name </label>
-			<select id="room-selection" name="room_preference" required>
+			<select id="room-selection" name="userId" required>
 				<option value="">Choose participants to evaluate</option>
+				<%if (typeof participants != "undefined") { %>
 				<%if (participants.length > 0) { %>
 					<% for (let i = 0; i < participants.length; i++) { %>
-						<option value="participants">participants</option>
+						<option value="<%=participants[i].member._id%>" name="userId"><%=participants[i].member.fullName%></option>
 					<% } %>
+				<% } %>
 				<% } %>
 			</select>
 		  </div>
@@ -104,5 +107,6 @@ button:hover {
 		<hr>
 		<button type="submit">Submit</button>
 	  </form>
+		<% } %>
 </body>
 </html>

@@ -179,6 +179,8 @@
 							<td><button class="btn btn-danger" onclick="stop('<%=events[i]._id%>')">Stop</button></td>
 						<% } else if (events[i].status === "WAITING") { %>
 							<td><button class="btn btn-danger" onclick="stop('<%=events[i]._id%>')">End Grading</button></td>
+						<% }  else if (events[i].status === "ENDED") { %>
+							<td><button class="btn btn-danger" onclick="stop('<%=events[i]._id%>')">Send result</button></td>
 						<% } %>
 					</tr>
 					<% } %>
@@ -215,6 +217,10 @@
 
 		const stop = (id) => {
 			location.href = `/event/stop-event/${id}`
+		}
+
+		const send = (id) => {
+			location.href = `/event/send-result/${id}`
 		}
 
 	</script>

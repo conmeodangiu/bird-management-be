@@ -4,9 +4,11 @@ const Events = require("../schema/event");
 const isAuthorized = require("../isAuthorized");
 const Users = require("../schema/user");
 router.get("/create-event", (_, res) => {
-  Events.find({}).then((events) => {
-    return res.render("create-event", {events});
-  }).catch(err => console.log(err));
+  Events.find({})
+    .then((events) => {
+      return res.render("create-event", { events });
+    })
+    .catch((err) => console.log(err));
 });
 router.post("/create-event", async (req, res) => {
   const { titleMatch, description, startDate, endDate } = req.body;
@@ -20,11 +22,11 @@ router.post("/create-event", async (req, res) => {
       endDate,
       status: "CREATED",
     });
-    console.log(newEvent);
     await newEvent.save();
-    console.log(newEvent);
 
-    return res.redirect("/event/create-event");
+    Events.find({}).then((events) => {
+      return res.redirect("/event/create-event", {events});
+    });
   } catch (err) {
     console.error(err);
 
@@ -32,17 +34,29 @@ router.post("/create-event", async (req, res) => {
   }
 });
 
-router.get('/start-event/:id', (req, res) => {
-  Events.findByIdAndUpdate({_id: req.params.id}, {status: "STARTED"}, {new: true}).then((events) => {
-    return res.render("create-event", {events});
-  }).catch(err => console.log(err)); 
-})
+router.get("/start-event/:id", (req, res) => {
+  Events.findByIdAndUpdate(
+    { _id: req.params.id },
+    { status: "STARTED" },
+    { new: true }
+  )
+    .then((events) => {
+      return res.render("create-event", { events });
+    })
+    .catch((err) => console.log(err));
+});
 
-router.get('/stop-event/:id', (req, res) => {
-  Events.findByIdAndUpdate({_id: req.params.id}, {status: "WAITING"}, {new: true}).then((events) => {
-    return res.render("create-event", {events});
-  }).catch(err => console.log(err)); 
-})
+router.get("/stop-event/:id", (req, res) => {
+  Events.findByIdAndUpdate(
+    { _id: req.params.id },
+    { status: "ENDED" },
+    { new: true }
+  )
+    .then((events) => {
+      return res.render("create-event", { events });
+    })
+    .catch((err) => console.log(err));
+});
 
 // create new event
 // router.post("/create-new-event", isAuthorized(["MEMBER"]), (req, res) => {

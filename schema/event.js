@@ -1,14 +1,16 @@
 const mongoose = require("mongoose");
 
 const gradingFieldsSchema = new mongoose.Schema({
-  field1: { type: Number, required: true },
-  field2: { type: String, required: true },
+  color: { type: String },
+  shape: { type: String },
+  feathers: { type: String },
+  size: { type: String },
   // Add more grading fields as needed
 });
 
 const gradingDetailSchema = new mongoose.Schema({
-  judge: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
-  date: { type: Date, required: true },
+  judge: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  date: { type: Date },
   gradingFields: gradingFieldsSchema,
 });
 

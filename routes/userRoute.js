@@ -19,7 +19,7 @@ router.get("/", async (req, res) => {
   });
 });
 router.get("/competition", (_, res) => {
-  Events.find({}).then((comp) => {
+  Events.find({status: "STARTED"}).then((comp) => {
     res.render("view-competition", { comp });
   });
 });
@@ -91,60 +91,30 @@ router.get("/delete/:id", async (req, res) => {
   return res.redirect("/auth/login");
 });
 
-router.post("/register-competition/:id", (req, res) => {
+router.post("/register-competition/:id", async (req, res) => {
   const { body } = req;
   const eventId = req.params.id;
 
-  Events.findById(eventId).then((err, foundEvent) => {
-    if (err) {
-      console.log(err);
-    } else {
-      if (!foundEvent) {
-        console.log("Event not found.");
-        return;
-      }
-    }
+  const foundEvent = await Events.findById(eventId).exec();
 
-    const updatedParticipant = {
-      member: body.userId,
-      fields: {
-        birdType: body.birdType,
-        birdName: body.birdName,
-        birdAge: body.birdAge,
-        birdColor: body.birdColor,
-        birdQuantity: body.birdQuantity,
-      },
-      gradingDetails: [],
-    };
+  const updatedParticipant = {
+    member: body.userId,
+    fields: {
+      birdType: body.birdType,
+      birdName: body.birdName,
+      birdAge: body.birdAge,
+      birdColor: body.birdColor,
+      birdQuantity: body.birdQuantity,
+    },
+    gradingDetails: {},
+  };
+  
+  foundEvent.participants.push(updatedParticipant);
 
-    console.log('found', foundEvent)
-    
+  await foundEvent.save();
 
-    // Find the index of the participant you want to update in the participants array
-    const participantIndex = foundEvent.participants.findIndex(
-      (participant) =>
-        participant.member.toString() === updatedParticipant.member
-    );
+  res.redirect('/')
 
-    if (participantIndex !== -1) {
-      // Update the participant at the found index
-      foundEvent.participants[participantIndex] = updatedParticipant;
-
-      // Save the updated event
-      foundEvent.save((err, updatedEvent) => {
-        if (err) {
-          console.error(err);
-          // Handle the error
-        } else {
-          console.log("Participant data updated successfully:");
-          console.log(updatedEvent);
-          // The updatedEvent contains the updated data
-        }
-      });
-    } else {
-      console.log("Participant not found in the event.");
-    }
-  });
 });
 
 module.exports = router;
