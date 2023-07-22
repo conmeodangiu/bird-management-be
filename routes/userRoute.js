@@ -117,4 +117,41 @@ router.post("/register-competition/:id", async (req, res) => {
 
 });
 
+router.get('/grading-details', async (req, res) => {
+  try {
+    const memberId = req.user._id; // Get the member ID from the request URL parameter
+
+    // Find the event that contains the participant with the provided memberId
+    const event = await Events.findOne({
+      'participants.member': memberId
+    });
+
+    if (!event) {
+      // If the event is not found, handle the error (member not found in any event)
+      return res.status(404).send('Participant not found in any event.');
+    }
+
+    // Find the specific participant with the provided memberId
+    const participant = event.participants.find(
+      (participant) => participant.member.toString() === memberId
+    );
+
+    if (!participant) {
+      // If the participant is not found, handle the error (member not found in this event)
+      return res.status(404).send('Participant not found in this event.');
+    }
+
+    // Render the gradingDetails for the specific member
+    // res.render('grading-details', {
+    //   event: event,
+    //   participant: participant,
+    // });
+    const isLogged = req.session.username;
+    res.render('grading-details', {grading: participant.gradingDetails, isLogged })
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Internal server error.');
+  }
+});
+
 module.exports = router;

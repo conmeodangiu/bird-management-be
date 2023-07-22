@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Result</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+  </head>
+  <body class="container">
+    <header class="p-3 bg-dark text-white fixed-top">
+      <div class="container">
+        <div
+          class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start"
+        >
+          <ul
+            class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"
+          >
+            <% if (typeof isLogged !="undefined" ) {%> <%console.log(isLogged)%>
+            <%if (isLogged) { %>
+            <li>
+              <a href="/user/competition" class="nav-link px-2 text-white"
+                >Competition</a
+              >
+            </li>
+            <li>
+              <a href="/user/grading-details" class="nav-link px-2 text-white"
+                >Result</a
+              >
+            </li>
+            <li>
+              <a href="/blog" class="nav-link px-2 text-white">Blog</a>
+            </li>
+            <% } %> <% } else { %>
+            <li>
+              <a href="/blog" class="nav-link px-2 text-white">Blog</a>
+            </li>
+            <% } %>
+          </ul>
+
+          <% if (typeof isLogged !="undefined" ) {%> <%console.log(isLogged)%>
+          <%if (isLogged) { %>
+          <button
+            type="button"
+            class="btn btn-outline-light me-2"
+            id="logout-btn"
+          >
+            <a href="/auth/logout">Logout</a>
+          </button>
+          <% } %> <% } else { %>
+          <button
+            type="button"
+            class="btn btn-outline-light me-2"
+            id="login-btn"
+          >
+            <a href="/auth/login" style="color: white">Login</a>
+          </button>
+          <button type="button" class="btn btn-warning">
+            <a href="/auth/register" style="color: white">Sign-up</a>
+          </button>
+          <% } %>
+        </div>
+      </div>
+    </header>
+    <div>
+      <h1 style="margin-top: 150px;">Result</h1>
+      <% if (typeof grading !== "undefined") { %> <% for (let i = 0; i <
+      grading.length; i++) { %>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Color</th>
+            <th scope="col">Shape</th>
+            <th scope="col">Feather</th>
+            <th scope="col">Size</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for (let i = 0; i < grading.length; i++) { %>
+          <tr>
+            <th scope="row"><%= i + 1 %></th>
+            <td><%= grading[i].gradingFields.color %></td>
+            <td><%= grading[i].gradingFields.shape %></td>
+            <td><%= grading[i].gradingFields.feathers %></td>
+            <td><%= grading[i].gradingFields.size %></td>
+          </tr>
+        </tbody>
+      </table>
+      <% } } %> <% } %>
+    </div>
+
+    <script src="/docs/5.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
